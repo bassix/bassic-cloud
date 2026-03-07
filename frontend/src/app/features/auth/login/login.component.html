@@ -1,0 +1,76 @@
+<div class="login-wrapper">
+  <!-- Animated background blobs -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <!-- Glass card -->
+  <div class="login-glass">
+    <!-- Logo -->
+    <div class="login-brand">
+      <div class="logo-ring">
+        <mat-icon class="logo-icon">cloud</mat-icon>
+      </div>
+      <h1 class="brand-name">BassCloud</h1>
+      <p class="brand-tagline">{{ 'auth.title' | translate }}</p>
+    </div>
+
+    <!-- Progress -->
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate" class="login-progress"></mat-progress-bar>
+    }
+
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-body">
+      <mat-form-field appearance="outline" class="glass-field">
+        <mat-label>{{ 'auth.username' | translate }}</mat-label>
+        <mat-icon matPrefix>person_outline</mat-icon>
+        <input matInput formControlName="username" autocomplete="username">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="glass-field">
+        <mat-label>{{ 'auth.password' | translate }}</mat-label>
+        <mat-icon matPrefix>lock_outline</mat-icon>
+        <input matInput formControlName="password"
+          [type]="hidePassword ? 'password' : 'text'"
+          autocomplete="current-password">
+        <button mat-icon-button matSuffix type="button"
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      @if (errorMessage) {
+        <div class="error-banner">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ errorMessage }}</span>
+        </div>
+      }
+
+      <button mat-flat-button type="submit"
+        [disabled]="form.invalid || loading || lockedSeconds > 0"
+        class="submit-btn">
+        @if (lockedSeconds > 0) {
+          <span class="btn-inner">
+            <mat-icon class="spin">hourglass_empty</mat-icon>
+            {{ 'auth.locked' | translate:{ seconds: lockedSeconds } }}
+          </span>
+        } @else {
+          <span class="btn-inner">
+            @if (loading) {
+              <mat-spinner diameter="20"></mat-spinner>
+            } @else {
+              <mat-icon>login</mat-icon>
+            }
+            <span>{{ 'auth.submit' | translate }}</span>
+          </span>
+        }
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <span>Powered by BassCloud</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,142 @@
+{
+  "welcome": {
+    "tagline": "Twoja osobista chmura, Twoje zasady.",
+    "description": "Samodzielnie hostowana platforma chmurowa do zarządzania plikami, galeriami zdjęć i odtwarzania multimediów — bezpośrednio na Twoim QNAP NAS.",
+    "feature_files": "Pliki",
+    "feature_gallery": "Galeria zdjęć",
+    "feature_media": "Odtwarzacz",
+    "login": "Zaloguj się"
+  },
+  "setup": {
+    "title": "Witamy w BassCloud",
+    "subtitle": "Skonfiguruj swoją chmurę w kilka sekund",
+    "username": "Nazwa użytkownika",
+    "email": "E-mail",
+    "password": "Hasło",
+    "locale": "Język",
+    "submit": "Utwórz konto administratora",
+    "success": "Konto utworzone! Możesz się teraz zalogować."
+  },
+  "auth": {
+    "title": "Zaloguj się",
+    "username": "Nazwa użytkownika lub e-mail",
+    "password": "Hasło",
+    "submit": "Zaloguj się",
+    "locked": "Zbyt wiele prób. Spróbuj ponownie za {{seconds}}s.",
+    "invalid": "Nieprawidłowe dane logowania."
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "users": "Użytkownicy",
+    "files": "Pliki",
+    "gallery": "Galeria",
+    "player": "Odtwarzacz",
+    "logs": "Dzienniki",
+    "logout": "Wyloguj się",
+    "darkMode": "Tryb ciemny",
+    "lightMode": "Tryb jasny"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Witaj, {{username}}!",
+    "totalUsers": "Wszyscy użytkownicy",
+    "totalFiles": "Wszystkie pliki",
+    "accessToday": "Dostęp dzisiaj",
+    "failedToday": "Nieudane próby"
+  },
+  "users": {
+    "title": "Zarządzanie użytkownikami",
+    "create": "Utwórz użytkownika",
+    "edit": "Edytuj użytkownika",
+    "delete": "Usuń użytkownika",
+    "confirmDelete": "Czy na pewno chcesz usunąć tego użytkownika?",
+    "username": "Nazwa użytkownika",
+    "email": "E-mail",
+    "roles": "Role",
+    "locale": "Język",
+    "password": "Hasło",
+    "created": "Utworzono",
+    "actions": "Akcje"
+  },
+  "files": {
+    "title": "Zarządzanie plikami",
+    "upload": "Prześlij pliki",
+    "rename": "Zmień nazwę",
+    "delete": "Usuń",
+    "download": "Pobierz",
+    "noFiles": "Nie przesłano jeszcze żadnych plików.",
+    "confirmDelete": "Czy na pewno chcesz usunąć ten plik?",
+    "dragDrop": "Przeciągnij i upuść pliki lub kliknij",
+    "name": "Nazwa",
+    "type": "Typ",
+    "size": "Rozmiar",
+    "uploaded": "Przesłano",
+    "actions": "Akcje"
+  },
+  "gallery": {
+    "title": "Galeria zdjęć",
+    "slider": "Pokaz slajdów",
+    "grid": "Siatka",
+    "noPhotos": "Brak dostępnych zdjęć.",
+    "previous": "Poprzedni",
+    "next": "Następny"
+  },
+  "player": {
+    "title": "Odtwarzacz multimedialny",
+    "videos": "Wideo",
+    "audio": "Audio",
+    "noMedia": "Brak plików multimedialnych.",
+    "play": "Odtwórz",
+    "pause": "Pauza",
+    "volume": "Głośność"
+  },
+  "logs": {
+    "title": "Dzienniki dostępu",
+    "all": "Wszystkie dzienniki",
+    "failed": "Nieudane próby",
+    "chart": "Wykres aktywności",
+    "activity": "Aktywność dostępu",
+    "second": "Sek",
+    "minute": "Min",
+    "hour": "Godz",
+    "refresh": "Odśwież",
+    "ip": "Adres IP",
+    "user": "Użytkownik",
+    "action": "Akcja",
+    "detail": "Szczegóły",
+    "date": "Data"
+  },
+  "files": {
+    "title": "Zarządzanie plikami",
+    "upload": "Prześlij pliki",
+    "rename": "Zmień nazwę",
+    "delete": "Usuń",
+    "download": "Pobierz",
+    "noFiles": "Brak przesłanych plików.",
+    "confirmDelete": "Czy na pewno chcesz usunąć ten plik?",
+    "dragDrop": "Przeciągnij pliki tutaj lub kliknij",
+    "name": "Nazwa",
+    "type": "Typ",
+    "size": "Rozmiar",
+    "uploaded": "Przesłano",
+    "actions": "Akcje",
+    "tableView": "Widok tabeli",
+    "gridView": "Widok siatki",
+    "uploadQueue": "Kolejka przesyłania",
+    "clearDone": "Wyczyść zakończone",
+    "uploadDone": "Przesłano",
+    "uploadPending": "Oczekuje",
+    "uploadSuccess": "Plik {{name}} przesłany pomyślnie"
+  },
+  "common": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "close": "Zamknij",
+    "confirm": "Potwierdź",
+    "loading": "Ładowanie...",
+    "error": "Wystąpił błąd.",
+    "page": "Strona",
+    "of": "z",
+    "noData": "Brak danych."
+  }
+}

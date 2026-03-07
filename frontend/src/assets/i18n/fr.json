@@ -1,0 +1,142 @@
+{
+  "welcome": {
+    "tagline": "Votre cloud personnel, vos règles.",
+    "description": "Une plateforme cloud auto-hébergée pour la gestion de fichiers, les galeries photos et la lecture multimédia — directement sur votre QNAP NAS.",
+    "feature_files": "Fichiers",
+    "feature_gallery": "Galerie photo",
+    "feature_media": "Lecteur média",
+    "login": "Se connecter"
+  },
+  "setup": {
+    "title": "Bienvenue sur BassCloud",
+    "subtitle": "Configurez votre cloud en quelques secondes",
+    "username": "Nom d'utilisateur",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "locale": "Langue",
+    "submit": "Créer le compte administrateur",
+    "success": "Compte créé ! Vous pouvez maintenant vous connecter."
+  },
+  "auth": {
+    "title": "Se connecter",
+    "username": "Nom d'utilisateur ou e-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "locked": "Trop de tentatives. Réessayez dans {{seconds}}s.",
+    "invalid": "Identifiants invalides."
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "users": "Utilisateurs",
+    "files": "Fichiers",
+    "gallery": "Galerie",
+    "player": "Lecteur",
+    "logs": "Journaux",
+    "logout": "Se déconnecter",
+    "darkMode": "Mode sombre",
+    "lightMode": "Mode clair"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bienvenue, {{username}} !",
+    "totalUsers": "Utilisateurs totaux",
+    "totalFiles": "Fichiers totaux",
+    "accessToday": "Accès aujourd'hui",
+    "failedToday": "Tentatives échouées"
+  },
+  "users": {
+    "title": "Gestion des utilisateurs",
+    "create": "Créer un utilisateur",
+    "edit": "Modifier l'utilisateur",
+    "delete": "Supprimer l'utilisateur",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cet utilisateur ?",
+    "username": "Nom d'utilisateur",
+    "email": "E-mail",
+    "roles": "Rôles",
+    "locale": "Langue",
+    "password": "Mot de passe",
+    "created": "Créé",
+    "actions": "Actions"
+  },
+  "files": {
+    "title": "Gestion des fichiers",
+    "upload": "Télécharger des fichiers",
+    "rename": "Renommer",
+    "delete": "Supprimer",
+    "download": "Télécharger",
+    "noFiles": "Aucun fichier téléchargé.",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce fichier ?",
+    "dragDrop": "Glissez-déposez des fichiers ou cliquez",
+    "name": "Nom",
+    "type": "Type",
+    "size": "Taille",
+    "uploaded": "Téléchargé",
+    "actions": "Actions"
+  },
+  "gallery": {
+    "title": "Galerie photo",
+    "slider": "Diaporama",
+    "grid": "Grille",
+    "noPhotos": "Aucune photo disponible.",
+    "previous": "Précédent",
+    "next": "Suivant"
+  },
+  "player": {
+    "title": "Lecteur multimédia",
+    "videos": "Vidéos",
+    "audio": "Audio",
+    "noMedia": "Aucun fichier multimédia.",
+    "play": "Lecture",
+    "pause": "Pause",
+    "volume": "Volume"
+  },
+  "logs": {
+    "title": "Journaux d'accès",
+    "all": "Tous les journaux",
+    "failed": "Tentatives échouées",
+    "chart": "Graphique d'activité",
+    "activity": "Activité d'accès",
+    "second": "Sec",
+    "minute": "Min",
+    "hour": "Heure",
+    "refresh": "Actualiser",
+    "ip": "Adresse IP",
+    "user": "Utilisateur",
+    "action": "Action",
+    "detail": "Détail",
+    "date": "Date"
+  },
+  "files": {
+    "title": "Gestion des fichiers",
+    "upload": "Téléverser des fichiers",
+    "rename": "Renommer",
+    "delete": "Supprimer",
+    "download": "Télécharger",
+    "noFiles": "Aucun fichier téléversé.",
+    "confirmDelete": "Voulez-vous vraiment supprimer ce fichier ?",
+    "dragDrop": "Glissez les fichiers ici ou cliquez",
+    "name": "Nom",
+    "type": "Type",
+    "size": "Taille",
+    "uploaded": "Téléversé",
+    "actions": "Actions",
+    "tableView": "Vue tableau",
+    "gridView": "Vue grille",
+    "uploadQueue": "File de téléversement",
+    "clearDone": "Effacer les terminés",
+    "uploadDone": "Téléversé",
+    "uploadPending": "En attente",
+    "uploadSuccess": "Fichier {{name}} téléversé avec succès"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite.",
+    "page": "Page",
+    "of": "sur",
+    "noData": "Aucune donnée disponible."
+  }
+}

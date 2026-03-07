@@ -1,0 +1,52 @@
+security:
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        # Thumbnail route is public — auth is handled by a signed HMAC token in the URL.
+        thumbnails:
+            pattern: ^/thumb/
+            security: false
+
+        setup:
+            pattern: ^/api/setup
+            stateless: true
+            security: false
+
+        login:
+            pattern: ^/api/auth/login
+            stateless: true
+            security: false
+
+        api:
+            pattern: ^/api
+            stateless: true
+            jwt: ~
+
+        main:
+            lazy: true
+
+    access_control:
+        - { path: ^/thumb/, roles: PUBLIC_ACCESS }
+        - { path: ^/api/setup, roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth/logout, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/users, roles: ROLE_ADMIN }
+        - { path: ^/api/logs, roles: ROLE_ADMIN }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+
+when@test:
+    security:
+        password_hashers:
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: plaintext

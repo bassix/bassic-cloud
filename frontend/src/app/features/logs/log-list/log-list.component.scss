@@ -1,0 +1,53 @@
+// log-list.component styles
+
+:host {
+  @apply block;
+}
+
+.chart-toolbar {
+  @apply flex items-center gap-3 mb-4 flex-wrap;
+}
+
+.chart-title {
+  @apply flex-1 text-base font-semibold text-jungle-800;
+}
+
+:host-context(html.dark) .chart-title {
+  @apply text-jungle-100;
+}
+
+.resolution-toggle {
+  ::ng-deep .mat-button-toggle-button {
+    @apply text-sm px-3 py-1;
+  }
+}
+
+.chart-container {
+  @apply w-full;
+
+  height: 400px;
+
+  ::ng-deep .ngx-charts {
+    @apply w-full h-full;
+  }
+
+  ::ng-deep .line-series path {
+    stroke-width: 2.5px;
+  }
+
+  ::ng-deep .line-series circle {
+    r: 4px;
+  }
+}
+
+.chart-empty {
+  @apply flex flex-col items-center justify-center py-20 text-jungle-300 gap-3;
+
+  mat-icon {
+    @apply text-6xl w-16 h-16;
+  }
+
+  p {
+    @apply text-sm;
+  }
+}

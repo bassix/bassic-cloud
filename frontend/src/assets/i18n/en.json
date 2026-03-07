@@ -1,0 +1,127 @@
+{
+  "welcome": {
+    "tagline": "Your personal cloud, your rules.",
+    "description": "A self-hosted cloud platform for file management, photo galleries, and media playback — right on your QNAP NAS.",
+    "feature_files": "File Storage",
+    "feature_gallery": "Photo Gallery",
+    "feature_media": "Media Player",
+    "login": "Sign In"
+  },
+  "setup": {
+    "title": "Welcome to BassCloud",
+    "subtitle": "Set up your cloud in seconds",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "locale": "Language",
+    "submit": "Create Admin Account",
+    "success": "Account created! You can now sign in."
+  },
+  "auth": {
+    "title": "Sign In",
+    "username": "Username or Email",
+    "password": "Password",
+    "submit": "Sign In",
+    "locked": "Too many attempts. Retry in {{seconds}}s.",
+    "invalid": "Invalid credentials."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "files": "Files",
+    "gallery": "Gallery",
+    "player": "Media Player",
+    "logs": "Logs",
+    "logout": "Sign Out",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome, {{username}}!",
+    "totalUsers": "Total Users",
+    "totalFiles": "Total Files",
+    "accessToday": "Access Today",
+    "failedToday": "Failed Attempts"
+  },
+  "users": {
+    "title": "User Management",
+    "create": "Create User",
+    "edit": "Edit User",
+    "delete": "Delete User",
+    "confirmDelete": "Are you sure you want to delete this user?",
+    "username": "Username",
+    "email": "Email",
+    "roles": "Roles",
+    "locale": "Language",
+    "password": "Password",
+    "created": "Created",
+    "actions": "Actions"
+  },
+  "files": {
+    "title": "File Management",
+    "upload": "Upload Files",
+    "rename": "Rename",
+    "delete": "Delete",
+    "download": "Download",
+    "noFiles": "No files uploaded yet.",
+    "confirmDelete": "Are you sure you want to delete this file?",
+    "dragDrop": "Drag & drop files here or click to browse",
+    "name": "Name",
+    "type": "Type",
+    "size": "Size",
+    "uploaded": "Uploaded",
+    "actions": "Actions",
+    "tableView": "Table View",
+    "gridView": "Grid View",
+    "uploadQueue": "Upload Queue",
+    "clearDone": "Clear Finished",
+    "uploadDone": "Uploaded",
+    "uploadPending": "Pending",
+    "uploadSuccess": "File {{name}} uploaded successfully"
+  },
+  "gallery": {
+    "title": "Photo Gallery",
+    "slider": "Slider",
+    "grid": "Grid",
+    "noPhotos": "No photos available.",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "player": {
+    "title": "Media Player",
+    "videos": "Videos",
+    "audio": "Audio",
+    "noMedia": "No media files available.",
+    "play": "Play",
+    "pause": "Pause",
+    "volume": "Volume"
+  },
+  "logs": {
+    "title": "Access Logs",
+    "all": "All Logs",
+    "failed": "Failed Attempts",
+    "chart": "Activity Chart",
+    "activity": "Access Activity",
+    "second": "Sec",
+    "minute": "Min",
+    "hour": "Hour",
+    "refresh": "Refresh",
+    "ip": "IP Address",
+    "user": "User",
+    "action": "Action",
+    "detail": "Detail",
+    "date": "Date"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "error": "An error occurred.",
+    "page": "Page",
+    "of": "of",
+    "noData": "No data available."
+  }
+}

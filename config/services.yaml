@@ -1,0 +1,33 @@
+parameters:
+    upload_directory: '%env(resolve:UPLOAD_DIRECTORY)%'
+    thumbnail_directory: '%kernel.project_dir%/var/thumbnails'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Service\FileManager:
+        arguments:
+            $uploadDirectory: '%upload_directory%'
+
+    App\Service\ThumbnailService:
+        arguments:
+            $uploadDirectory: '%upload_directory%'
+            $thumbnailDirectory: '%thumbnail_directory%'
+
+    App\Service\ThumbnailTokenService:
+        arguments:
+            $appSecret: '%env(APP_SECRET)%'
+
+    App\EventListener\AccessLogListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }

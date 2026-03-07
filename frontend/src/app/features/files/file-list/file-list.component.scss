@@ -1,0 +1,245 @@
+:host {
+  @apply block;
+}
+
+.files-page {
+  @apply space-y-4;
+}
+
+/* === Header === */
+.page-header {
+  @apply flex items-center justify-between;
+}
+
+.page-title {
+  @apply text-2xl font-bold text-jungle-800;
+}
+
+:host-context(html.dark) .page-title {
+  @apply text-jungle-100;
+}
+
+.view-toggle {
+  @apply flex items-center gap-1 p-1 rounded-xl bg-jungle-100;
+
+  button.active {
+    @apply bg-white text-jungle-700 shadow-sm;
+  }
+}
+
+:host-context(html.dark) .view-toggle {
+  @apply bg-jungle-800;
+
+  button.active {
+    @apply bg-jungle-600 text-white;
+  }
+}
+
+/* === Upload zone === */
+.upload-icon {
+  @apply text-5xl text-jungle-400 mb-2;
+}
+
+.upload-label {
+  @apply text-jungle-600 text-sm;
+}
+
+/* Upload queue */
+.upload-queue {
+  @apply rounded-2xl overflow-hidden border border-jungle-200;
+}
+
+:host-context(html.dark) .upload-queue {
+  @apply border-jungle-700;
+}
+
+.upload-queue-header {
+  @apply flex items-center justify-between px-4 py-2 bg-jungle-50 border-b border-jungle-200 text-sm;
+}
+
+:host-context(html.dark) .upload-queue-header {
+  @apply bg-jungle-900 border-jungle-700 text-jungle-200;
+}
+
+.upload-queue-title {
+  @apply font-medium text-jungle-700;
+}
+
+:host-context(html.dark) .upload-queue-title {
+  @apply text-jungle-200;
+}
+
+.clear-btn {
+  @apply text-xs text-jungle-500;
+}
+
+.upload-item {
+  @apply bg-white px-4 py-3 border-b border-jungle-100 last:border-0;
+
+  &.done .upload-item-icon {
+    @apply text-jungle-500;
+  }
+
+  &.error {
+    @apply bg-red-50;
+
+    .upload-item-icon {
+      @apply text-red-500;
+    }
+
+    .upload-item-size {
+      @apply text-red-600;
+    }
+  }
+}
+
+:host-context(html.dark) .upload-item {
+  @apply bg-jungle-900 border-jungle-800;
+
+  &.error {
+    @apply bg-red-950;
+  }
+}
+
+.upload-item-info {
+  @apply flex items-center gap-3 mb-1;
+}
+
+.upload-item-icon {
+  @apply text-jungle-400 flex-shrink-0;
+}
+
+.upload-item-meta {
+  @apply flex-1 min-w-0;
+}
+
+.upload-item-name {
+  @apply block text-sm font-medium text-jungle-800 truncate;
+}
+
+:host-context(html.dark) .upload-item-name {
+  @apply text-jungle-100;
+}
+
+.upload-item-size {
+  @apply block text-xs text-jungle-500 mt-0.5;
+}
+
+:host-context(html.dark) .upload-item-size {
+  @apply text-jungle-400;
+}
+
+.upload-item-percent {
+  @apply text-sm font-semibold text-jungle-600 w-10 text-right flex-shrink-0;
+}
+
+.dismiss-btn {
+  @apply flex-shrink-0;
+}
+
+.upload-error-bar {
+  @apply h-1 bg-red-400 rounded;
+}
+
+/* === Files card (table view) === */
+.files-card {
+  @apply rounded-2xl overflow-hidden;
+}
+
+.rename-field {
+  @apply my-0 py-0;
+}
+
+.empty-state {
+  @apply flex flex-col items-center justify-center py-16 text-jungle-400 gap-2;
+
+  mat-icon {
+    @apply text-5xl w-12 h-12;
+  }
+
+  p {
+    @apply text-sm;
+  }
+}
+
+/* === Grid view === */
+.file-grid {
+  @apply grid gap-4;
+
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+.file-tile {
+  @apply relative rounded-2xl overflow-hidden bg-white border border-jungle-100 cursor-pointer;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    @apply shadow-glass-lg;
+
+    transform: translateY(-3px);
+
+    .file-tile-overlay {
+      @apply opacity-100;
+    }
+  }
+}
+
+:host-context(html.dark) .file-tile {
+  @apply bg-jungle-900 border-jungle-700;
+}
+
+.file-tile-thumb {
+  @apply w-full overflow-hidden bg-jungle-50 flex items-center justify-center;
+
+  height: 140px;
+
+  img,
+  video {
+    @apply w-full h-full object-cover;
+  }
+}
+
+:host-context(html.dark) .file-tile-thumb {
+  @apply bg-jungle-800;
+}
+
+.file-tile-icon {
+  @apply text-5xl w-12 h-12;
+}
+
+.file-tile-loading {
+  @apply w-full h-full flex items-center justify-center text-jungle-300;
+
+  mat-icon {
+    @apply text-4xl w-10 h-10;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1.2s linear infinite;
+  display: inline-block;
+}
+
+.file-tile-overlay {
+  @apply absolute inset-0 flex items-center justify-center gap-1 opacity-0 transition-opacity;
+
+  background: rgb(0 0 0 / 40%);
+}
+
+.file-tile-name {
+  @apply px-3 py-2 text-xs font-medium text-jungle-800 truncate;
+}
+
+:host-context(html.dark) .file-tile-name {
+  @apply text-jungle-200;
+}
+
+.file-tile-meta {
+  @apply px-3 pb-2 text-xs text-jungle-500;
+}

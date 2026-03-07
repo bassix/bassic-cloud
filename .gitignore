@@ -1,0 +1,60 @@
+###> Idee PHPStorm and Visual Studio Code ###
+.idea/
+.vscode/
+###< Idee PHPStorm and Visual Studio Code ###
+
+###> OS generated files ###
+.DS_Store
+*.swp
+*.swo
+Thumbs.db
+###< OS generated files ###
+
+###> DevTools ###
+docker-compose.override.yml
+mariadb/data/*
+mariadb/log/*
+postgresql/data/*
+postgresql/log/*
+###< DevTools ###
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/.env.prod
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
+
+###> PHP Coding Standards Fixer
+/php-cs-fixer
+/.php_cs
+/.php_cs.cache
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< PHP Coding Standards Fixer ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
+
+### > Frontend ###
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular
+/frontend/.yarn/
+/public/cloud/
+### < Frontend ###

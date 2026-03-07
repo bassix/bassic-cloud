@@ -1,0 +1,127 @@
+{
+  "welcome": {
+    "tagline": "Deine persönliche Cloud, deine Regeln.",
+    "description": "Eine selbst gehostete Cloud-Plattform für Dateiverwaltung, Fotogalerien und Medienwiedergabe — direkt auf deinem QNAP NAS.",
+    "feature_files": "Dateispeicher",
+    "feature_gallery": "Fotogalerie",
+    "feature_media": "Mediaplayer",
+    "login": "Anmelden"
+  },
+  "setup": {
+    "title": "Willkommen bei BassCloud",
+    "subtitle": "Richten Sie Ihre Cloud in Sekunden ein",
+    "username": "Benutzername",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "locale": "Sprache",
+    "submit": "Admin-Konto erstellen",
+    "success": "Konto erstellt! Sie können sich jetzt anmelden."
+  },
+  "auth": {
+    "title": "Anmelden",
+    "username": "Benutzername oder E-Mail",
+    "password": "Passwort",
+    "submit": "Anmelden",
+    "locked": "Zu viele Versuche. Erneut versuchen in {{seconds}}s.",
+    "invalid": "Ungültige Anmeldedaten."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "users": "Benutzer",
+    "files": "Dateien",
+    "gallery": "Galerie",
+    "player": "Media Player",
+    "logs": "Protokolle",
+    "logout": "Abmelden",
+    "darkMode": "Dunkelmodus",
+    "lightMode": "Hellmodus"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Willkommen, {{username}}!",
+    "totalUsers": "Benutzer gesamt",
+    "totalFiles": "Dateien gesamt",
+    "accessToday": "Zugriffe heute",
+    "failedToday": "Fehlversuche"
+  },
+  "users": {
+    "title": "Benutzerverwaltung",
+    "create": "Benutzer erstellen",
+    "edit": "Benutzer bearbeiten",
+    "delete": "Benutzer löschen",
+    "confirmDelete": "Möchten Sie diesen Benutzer wirklich löschen?",
+    "username": "Benutzername",
+    "email": "E-Mail",
+    "roles": "Rollen",
+    "locale": "Sprache",
+    "password": "Passwort",
+    "created": "Erstellt",
+    "actions": "Aktionen"
+  },
+  "files": {
+    "title": "Dateiverwaltung",
+    "upload": "Dateien hochladen",
+    "rename": "Umbenennen",
+    "delete": "Löschen",
+    "download": "Herunterladen",
+    "noFiles": "Noch keine Dateien hochgeladen.",
+    "confirmDelete": "Möchten Sie diese Datei wirklich löschen?",
+    "dragDrop": "Dateien hierher ziehen oder klicken",
+    "name": "Name",
+    "type": "Typ",
+    "size": "Größe",
+    "uploaded": "Hochgeladen",
+    "actions": "Aktionen",
+    "tableView": "Tabellenansicht",
+    "gridView": "Rasteransicht",
+    "uploadQueue": "Upload-Warteschlange",
+    "clearDone": "Abgeschlossene entfernen",
+    "uploadDone": "Hochgeladen",
+    "uploadPending": "Ausstehend",
+    "uploadSuccess": "Datei {{name}} erfolgreich hochgeladen"
+  },
+  "gallery": {
+    "title": "Fotogalerie",
+    "slider": "Slider",
+    "grid": "Raster",
+    "noPhotos": "Keine Fotos verfügbar.",
+    "previous": "Zurück",
+    "next": "Weiter"
+  },
+  "player": {
+    "title": "Media Player",
+    "videos": "Videos",
+    "audio": "Audio",
+    "noMedia": "Keine Mediendateien verfügbar.",
+    "play": "Abspielen",
+    "pause": "Pause",
+    "volume": "Lautstärke"
+  },
+  "logs": {
+    "title": "Zugriffsprotokolle",
+    "all": "Alle Protokolle",
+    "failed": "Fehlgeschlagene Versuche",
+    "chart": "Aktivitätsdiagramm",
+    "activity": "Zugriffsaktivität",
+    "second": "Sek",
+    "minute": "Min",
+    "hour": "Std",
+    "refresh": "Aktualisieren",
+    "ip": "IP-Adresse",
+    "user": "Benutzer",
+    "action": "Aktion",
+    "detail": "Detail",
+    "date": "Datum"
+  },
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten.",
+    "page": "Seite",
+    "of": "von",
+    "noData": "Keine Daten verfügbar."
+  }
+}

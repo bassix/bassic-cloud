@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Base === */
+html,
+body {
+  @apply h-full m-0;
+
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Dark mode base */
+html.dark {
+  @apply bg-jungle-950;
+
+  color-scheme: dark;
+}
+
+/* === Liquid Glass Utilities === */
+@layer components {
+  .glass {
+    @apply bg-white/60 backdrop-blur-xl border border-white/30 shadow-glass;
+  }
+
+  .glass-dark {
+    @apply bg-jungle-950/60 backdrop-blur-xl border border-white/10 shadow-glass;
+  }
+
+  html.dark .glass {
+    @apply bg-jungle-950/60 border-white/10;
+  }
+
+  .glass-card {
+    @apply glass rounded-2xl;
+  }
+
+  html.dark .glass-card {
+    @apply glass-dark rounded-2xl;
+  }
+}
+
+/* === Dashboard Layout === */
+.dashboard-container {
+  @apply flex h-screen bg-jungle-50;
+}
+
+html.dark .dashboard-container {
+  @apply bg-jungle-950;
+}
+
+.sidebar {
+  @apply w-64 bg-jungle-800 text-white flex flex-col;
+}
+
+html.dark .sidebar {
+  @apply bg-jungle-950 border-r border-white/10;
+}
+
+.sidebar-header {
+  @apply p-4 text-xl font-bold border-b border-jungle-700;
+}
+
+.sidebar-nav {
+  @apply flex-1 overflow-y-auto py-2;
+}
+
+.sidebar-link {
+  @apply flex items-center px-4 py-3 text-jungle-200 hover:bg-jungle-700 hover:text-white transition-colors;
+}
+
+.sidebar-link.active {
+  @apply bg-jungle-700 text-white border-l-4 border-coral-400;
+}
+
+.sidebar-link mat-icon {
+  @apply mr-3;
+}
+
+.main-content {
+  @apply flex-1 flex flex-col overflow-hidden;
+}
+
+.top-bar {
+  @apply bg-white/80 backdrop-blur-lg shadow-sm px-6 py-3 flex items-center justify-between border-b border-jungle-100;
+}
+
+html.dark .top-bar {
+  @apply bg-jungle-900/80 border-jungle-800 text-white;
+}
+
+.content-area {
+  @apply flex-1 overflow-y-auto p-6;
+}
+
+/* === Stat Cards === */
+.stat-card {
+  @apply glass-card p-6 flex items-center space-x-4;
+}
+
+.stat-card .stat-icon {
+  @apply w-12 h-12 rounded-full flex items-center justify-center;
+}
+
+.stat-card .stat-value {
+  @apply text-2xl font-bold text-jungle-900;
+}
+
+html.dark .stat-card .stat-value {
+  @apply text-white;
+}
+
+.stat-card .stat-label {
+  @apply text-sm text-jungle-600;
+}
+
+html.dark .stat-card .stat-label {
+  @apply text-jungle-300;
+}
+
+/* === Media Player === */
+.video-player-container {
+  @apply bg-jungle-950 rounded-2xl overflow-hidden shadow-glass-lg;
+}
+
+.video-player-container video {
+  @apply w-full;
+}
+
+.player-controls {
+  @apply bg-jungle-900 px-4 py-2 flex items-center space-x-3 text-white;
+}
+
+.audio-player-container {
+  @apply bg-jungle-900 rounded-2xl p-4 text-white shadow-glass-lg;
+}
+
+/* === Gallery === */
+.gallery-grid {
+  @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4;
+}
+
+.gallery-item {
+  @apply relative rounded-2xl overflow-hidden cursor-pointer;
+}
+
+.gallery-item img {
+  @apply w-full h-48 object-cover transition-transform;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-overlay {
+  @apply absolute inset-0 bg-black/0 transition-all flex items-center justify-center;
+}
+
+.gallery-item:hover .gallery-overlay {
+  @apply bg-black/40;
+}
+
+/* === Upload Zone === */
+.upload-zone {
+  @apply border-2 border-dashed border-jungle-300 rounded-2xl p-8 text-center cursor-pointer
+         hover:border-jungle-500 hover:bg-jungle-50 transition-colors;
+}
+
+html.dark .upload-zone {
+  @apply border-jungle-600 hover:border-jungle-400 hover:bg-jungle-900/50;
+}
+
+.upload-zone.dragging {
+  @apply border-jungle-500 bg-jungle-50;
+}
