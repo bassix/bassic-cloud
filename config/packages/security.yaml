@@ -28,6 +28,11 @@ security:
             stateless: true
             security: false
 
+        blog_public:
+            pattern: ^/api/blog(?!/admin)
+            stateless: true
+            security: false
+
         api:
             pattern: ^/api
             stateless: true
@@ -41,6 +46,7 @@ security:
         - { path: ^/api/setup, roles: PUBLIC_ACCESS }
         - { path: ^/api/auth/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/auth/logout, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/blog(?!/admin), roles: PUBLIC_ACCESS, methods: [GET] }
         - { path: ^/api/users, roles: ROLE_ADMIN }
         - { path: ^/api/logs, roles: ROLE_ADMIN }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

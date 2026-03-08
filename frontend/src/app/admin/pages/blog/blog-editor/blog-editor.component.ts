@@ -8,6 +8,7 @@ import { MatChipsModule, MatChipInputEvent } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -16,13 +17,27 @@ import { HttpClient } from '@angular/common/http';
 import { NgxEditorModule, Editor, Toolbar } from 'ngx-editor';
 import { environment } from '@env/environment';
 
+interface BlogPost {
+  id: number;
+  title: string;
+  subtitle: string;
+  bodyContent: string;
+  slug: string;
+  status: string;
+  publishedAt: string | null;
+  tags: string[];
+  coverFileId: number | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 @Component({
   selector: 'app-blog-editor',
   standalone: true,
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, RouterModule,
     MatButtonModule, MatCardModule, MatChipsModule, MatFormFieldModule,
-    MatIconModule, MatInputModule, MatSelectModule, MatSnackBarModule,
+    MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSelectModule, MatSnackBarModule,
     TranslateModule, NgxEditorModule,
   ],
   templateUrl: './blog-editor.component.html',
@@ -45,6 +60,7 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
   public separatorKeysCodes: number[] = [ENTER, COMMA];
   public postId: number | null = null;
   public saving = false;
+  public saveError = '';
   public statusOptions = ['draft', 'published', 'archived'];
 
   public constructor(
@@ -72,24 +88,21 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
 
     if (id) {
       this.postId = Number(id);
-      this.http.get<{ success: boolean; data: Record<string, unknown> }>(`${environment.apiUrl}/blog/admin/posts/${this.postId}`).subscribe({
+      this.http.get<{ success: boolean; data: BlogPost }>(`${environment.apiUrl}/blog/admin/posts/${this.postId}`).subscribe({
         next: (res) => {
           if (res.success) {
-            const posts = res.data as unknown as Record<string, unknown>[];
-            const post = posts.find((p) => p['id'] === this.postId);
+            const post: BlogPost = res.data;
 
-            if (post) {
-              this.form.patchValue({
-                title: post['title'],
-                subtitle: post['subtitle'],
-                bodyContent: post['bodyContent'],
-                slug: post['slug'],
-                status: post['status'],
-                publishedAt: post['publishedAt'] ? String(post['publishedAt']).slice(0, 16) : '',
-                coverFileId: post['coverFileId'],
-              });
-              this.tags = Array.isArray(post['tags']) ? post['tags'] as string[] : [];
-            }
+            this.form.patchValue({
+              title: post.title,
+              subtitle: post.subtitle,
+              bodyContent: post.bodyContent,
+              slug: post.slug,
+              status: post.status,
+              publishedAt: post.publishedAt ? post.publishedAt.slice(0, 16) : '',
+              coverFileId: post.coverFileId,
+            });
+            this.tags = Array.isArray(post.tags) ? post.tags : [];
           }
         },
       });
@@ -113,13 +126,20 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
   }
 
   public save(): void {
-    if (this.form.invalid || this.saving) { return; }
+    if (this.form.invalid || this.saving) {
+      return;
+    }
 
     this.saving = true;
+    this.saveError = '';
+    const formVal = this.form.value as {
+      title: string; subtitle: string; bodyContent: string; slug: string;
+      status: string; publishedAt: string; coverFileId: number | null;
+    };
     const body = {
-      ...this.form.value,
+      ...formVal,
       tags: this.tags,
-      publishedAt: this.form.value.publishedAt || null,
+      publishedAt: formVal.publishedAt || null,
     };
 
     const req = this.postId
@@ -129,10 +149,13 @@ export class BlogEditorComponent implements OnInit, OnDestroy {
     req.subscribe({
       next: () => {
         this.saving = false;
-        this.snackBar.open(this.translate.instant('common.save'), '', { duration: 2000 });
+        this.snackBar.open(this.translate.instant('common.saved') as string, '', { duration: 2000 });
         void this.router.navigate(['/admin/blog']);
       },
-      error: () => { this.saving = false; },
+      error: (err: { error?: { message?: string } }) => {
+        this.saving = false;
+        this.saveError = err.error?.message ?? (this.translate.instant('common.error') as string);
+      },
     });
   }
 }

@@ -160,11 +160,13 @@
   },
   "common": {
     "save": "Zapisz",
+    "saved": "Zapisano pomyślnie.",
     "cancel": "Anuluj",
     "close": "Zamknij",
     "confirm": "Potwierdź",
     "loading": "Ładowanie...",
     "error": "Wystąpił błąd.",
+    "required": "To pole jest wymagane.",
     "page": "Strona",
     "of": "z",
     "noData": "Brak dostępnych danych."
@@ -251,7 +253,11 @@
     "media": "Media",
     "coverImage": "Zdjęcie okładki",
     "noSlug": "Slug URL zostanie wygenerowany automatycznie",
+    "slugHint": "Pozostaw puste, aby wygenerować automatycznie z tytułu",
+    "bodyPlaceholder": "Napisz tutaj treść artykułu…",
+    "backToList": "Powrót do listy",
     "noPosts": "Brak wpisów na blogu.",
+    "comeBackSoon": "Pracujemy nad nowymi treściami — zajrzyj ponownie wkrótce!",
     "readMore": "Czytaj dalej",
     "backToBlog": "Powrót do bloga",
     "actions": "Akcje"

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -31,8 +31,17 @@ interface PaginatedBlog {
 @Component({
   selector: 'app-blog-list-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, MatCardModule, MatChipsModule,
-    MatIconModule, MatProgressSpinnerModule, TranslateModule, LocaleDatePipe],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatButtonModule,
+    MatCardModule,
+    MatChipsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    TranslateModule,
+    LocaleDatePipe,
+  ],
   templateUrl: './blog-list-page.component.html',
   styleUrls: ['./blog-list-page.component.scss'],
 })
@@ -40,13 +49,25 @@ export class BlogListPageComponent implements OnInit {
   public posts: BlogPostSummary[] = [];
   public loading = true;
   public error = false;
+  public lang = 'en';
 
-  public constructor(private readonly http: HttpClient) {}
+  public constructor(
+    private readonly http: HttpClient,
+    private readonly route: ActivatedRoute,
+  ) {}
 
   public ngOnInit(): void {
+    this.lang = this.route.parent?.snapshot.paramMap.get('lang') ?? 'en';
+
     this.http.get<PaginatedBlog>(`${environment.apiUrl}/blog`).subscribe({
-      next: (res) => { this.posts = res.data; this.loading = false; },
-      error: () => { this.error = true; this.loading = false; },
+      next: (res) => {
+        this.posts = res.data;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = true;
+        this.loading = false;
+      },
     });
   }
 }

@@ -56,11 +56,14 @@ export class LoginComponent {
   }
 
   public onSubmit(): void {
-    if (this.form.invalid || this.loading || this.lockedSeconds > 0) return;
+    if (this.form.invalid || this.loading || this.lockedSeconds > 0) {
+      return;
+    }
 
     this.loading = true;
     this.errorMessage = '';
-    const { username, password } = this.form.value;
+
+    const { username, password } = this.form.value as { username: string; password: string };
 
     this.authService.login(username, password).subscribe({
       next: (response) => {
@@ -72,11 +75,15 @@ export class LoginComponent {
           void this.router.navigate([isAdmin ? '/admin' : '/']);
         }
       },
-      error: (err) => {
+      error: (err: { error?: { message?: string; errors?: { retryAfter?: number } } }) => {
         this.loading = false;
-        const body = err.error;
+        const errBody = err.error;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const body: { message?: string; errors?: { retryAfter?: number } } = errBody !== null && typeof errBody === 'object'
+          ? (errBody as { message?: string; errors?: { retryAfter?: number } })
+          : {};
 
-        this.errorMessage = body?.message || this.translate.instant('auth.invalid');
+        this.errorMessage = body?.message ?? (this.translate.instant('auth.invalid') as string);
 
         // Handle lockout timer from Fibonacci-based delay
         const retryAfter = body?.errors?.retryAfter;

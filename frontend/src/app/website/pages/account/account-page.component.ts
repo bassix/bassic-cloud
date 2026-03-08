@@ -71,7 +71,7 @@ export class AccountPageComponent implements OnInit {
     const { password, confirmPassword, email } = this.form.value as { email: string; password: string; confirmPassword: string };
 
     if (password && password !== confirmPassword) {
-      this.snackBar.open(this.translate.instant('account.passwordMismatch'), '', { duration: 3000 });
+      this.snackBar.open(this.translate.instant('account.passwordMismatch') as string, '', { duration: 3000 });
 
       return;
     }
@@ -87,11 +87,11 @@ export class AccountPageComponent implements OnInit {
       next: () => {
         this.loading = false;
         this.form.patchValue({ password: '', confirmPassword: '' });
-        this.snackBar.open(this.translate.instant('account.saved'), '', { duration: 3000 });
+        this.snackBar.open(this.translate.instant('account.saved') as string, '', { duration: 3000 });
       },
       error: () => {
         this.loading = false;
-        this.snackBar.open(this.translate.instant('common.error'), '', { duration: 3000 });
+        this.snackBar.open(this.translate.instant('common.error') as string, '', { duration: 3000 });
       },
     });
   }

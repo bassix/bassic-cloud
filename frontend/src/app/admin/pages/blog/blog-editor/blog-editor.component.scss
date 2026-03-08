@@ -2,14 +2,46 @@
   @apply pb-12;
 }
 
+.editor-title {
+  @apply text-2xl font-bold text-jungle-900 m-0;
+}
+
+:host-context(html.dark) .editor-title {
+  @apply text-slate-100;
+}
+
+.editor-section-title {
+  @apply text-lg font-semibold text-jungle-800 mb-4 mt-0;
+}
+
+:host-context(html.dark) .editor-section-title {
+  @apply text-jungle-200;
+}
+
+.editor-error {
+  @apply flex items-center gap-2 px-4 py-3 rounded-xl text-sm;
+
+  background: rgb(239 68 68 / 12%);
+  border: 1px solid rgb(239 68 68 / 30%);
+  color: #dc2626;
+
+  mat-icon {
+    @apply flex-shrink-0;
+  }
+}
+
+:host-context(html.dark) .editor-error {
+  color: #fca5a5;
+}
+
 .ngx-editor-wrap {
-  border: 1px solid rgb(var(--color-jungle-300) / 40%);
+  border: 1px solid rgb(16 185 129 / 30%);
   border-radius: 12px;
   overflow: hidden;
 
   .NgxEditor__MenuBar {
-    border-bottom: 1px solid rgb(var(--color-jungle-300) / 30%);
-    background: rgb(var(--color-jungle-50) / 60%);
+    border-bottom: 1px solid rgb(16 185 129 / 20%);
+    background: rgb(16 185 129 / 5%);
     border-radius: 12px 12px 0 0;
   }
 
@@ -22,20 +54,100 @@
 }
 
 :host-context(html.dark) .ngx-editor-wrap {
-  border-color: rgb(255 255 255 / 10%);
+  border-color: rgb(255 255 255 / 15%);
 
   .NgxEditor__MenuBar {
-    background: rgb(var(--color-jungle-900) / 60%);
+    background: rgb(255 255 255 / 6%);
     border-color: rgb(255 255 255 / 10%);
+
+    /* Toolbar buttons & icons */
+    .NgxEditor__MenuItem {
+      .NgxEditor__MenuItem--IconContainer {
+        color: #94a3b8;
+        fill: #94a3b8;
+
+        &:hover {
+          background: rgb(255 255 255 / 10%);
+          color: #e2e8f0;
+          fill: #e2e8f0;
+        }
+      }
+
+      &.NgxEditor__MenuItem--Active .NgxEditor__MenuItem--IconContainer {
+        background: rgb(16 185 129 / 20%);
+        color: #6ee7b7;
+        fill: #6ee7b7;
+      }
+    }
+
+    /* Separator lines */
+    .NgxEditor__Separator {
+      border-color: rgb(255 255 255 / 10%);
+    }
+
+    /* Dropdown menus (heading select, etc.) */
+    .NgxEditor__Dropdown {
+      color: #94a3b8;
+
+      &:hover {
+        background: rgb(255 255 255 / 8%);
+      }
+    }
+
+    .NgxEditor__Dropdown__DropdownMenu {
+      background: rgb(10 42 30 / 95%);
+      border-color: rgb(255 255 255 / 10%);
+      color: #e2e8f0;
+
+      .NgxEditor__Dropdown__DropdownMenu--Item:hover {
+        background: rgb(255 255 255 / 8%);
+      }
+    }
   }
 
   .NgxEditor {
     background: transparent;
     color: #e2e8f0;
+
+    .NgxEditor__Placeholder::before {
+      color: rgb(255 255 255 / 35%);
+    }
+
+    /* Links inside editor */
+    a {
+      color: #6ee7b7;
+    }
+
+    /* Blockquote */
+    blockquote {
+      border-left-color: rgb(255 255 255 / 15%);
+      color: #94a3b8;
+    }
+
+    /* Code blocks */
+    code {
+      background: rgb(255 255 255 / 8%);
+      color: #6ee7b7;
+    }
+
+    pre {
+      background: rgb(255 255 255 / 5%);
+      color: #e2e8f0;
+    }
+
+    /* Horizontal rule */
+    hr {
+      border-color: rgb(255 255 255 / 10%);
+    }
   }
 }
 
 .save-btn {
+  @apply text-white font-semibold !important;
+
   background: theme('colors.jungle.600') !important;
-  color: #fff !important;
+}
+
+.save-btn:disabled {
+  opacity: 0.55 !important;
 }

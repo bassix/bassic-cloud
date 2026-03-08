@@ -38,14 +38,15 @@ export class BlogPostPageComponent implements OnInit {
   public post: BlogPost | null = null;
   public loading = true;
   public error = false;
+  public lang = 'en';
 
   public constructor(
     private readonly route: ActivatedRoute,
     private readonly http: HttpClient,
-  ) {
-  }
+  ) {}
 
   public ngOnInit(): void {
+    this.lang = this.route.parent?.snapshot.paramMap.get('lang') ?? 'en';
     const slug = this.route.snapshot.paramMap.get('slug') ?? '';
 
     this.http.get<ApiResponse<BlogPost>>(`${environment.apiUrl}/blog/${slug}`).subscribe({

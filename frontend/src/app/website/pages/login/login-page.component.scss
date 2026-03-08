@@ -1,5 +1,6 @@
 .login-page-wrapper {
-  @apply flex justify-center items-center py-16 px-6;
+  @apply flex justify-center items-center;
 
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 128px);
+  padding: 2rem 1.5rem;
 }

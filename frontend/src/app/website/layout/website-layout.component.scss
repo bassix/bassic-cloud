@@ -7,19 +7,23 @@
 .site-nav {
   @apply fixed top-0 left-0 right-0 z-50 transition-all duration-300;
 
-  /* Liquid glass base */
-  @apply bg-white/60 backdrop-blur-2xl border-b border-white/30;
+  background: rgb(255 255 255 / 72%);
+  backdrop-filter: blur(24px) saturate(200%);
+  border-bottom: 1px solid rgb(255 255 255 / 40%);
 
   &.scrolled {
-    @apply bg-white/[0.08]5 shadow-glass;
+    background: rgb(255 255 255 / 85%);
+
+    @apply shadow-glass;
   }
 }
 
 :host-context(html.dark) .site-nav {
-  @apply bg-jungle-950/70 border-white/[0.08];
+  background: rgb(5 20 13 / 75%);
+  border-bottom-color: rgb(255 255 255 / 8%);
 
   &.scrolled {
-    @apply bg-jungle-950/90;
+    background: rgb(5 20 13 / 92%);
   }
 }
 
@@ -31,14 +35,17 @@
 .nav-brand {
   @apply flex items-center gap-2 no-underline font-bold text-lg text-jungle-800 flex-shrink-0;
 
-  .brand-icon { @apply text-jungle-600; }
-  .brand-name { @apply font-bold; }
+  .brand-icon {
+    @apply text-jungle-600;
+  }
 }
 
 :host-context(html.dark) .nav-brand {
   @apply text-slate-100;
 
-  .brand-icon { @apply text-jungle-400; }
+  .brand-icon {
+    @apply text-jungle-400;
+  }
 }
 
 /* ─── Navigation links ───────────────────────────────────────────────────────── */
@@ -49,22 +56,10 @@
 .nav-link {
   @apply text-sm font-medium text-jungle-700 rounded-lg !important;
 
-  .nav-link-icon {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
-  }
-
-  .dropdown-arrow {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-  }
-
   &.active {
-    @apply text-jungle-700 !important;
+    @apply text-jungle-800 !important;
 
-    background: rgb(61 143 107 / 10%) !important;
+    background: rgb(16 185 129 / 12%) !important;
   }
 
   &.nav-link-tools {
@@ -82,12 +77,18 @@
   &.active {
     @apply text-slate-100 !important;
 
-    background: rgb(255 255 255 / 8%) !important;
+    background: rgb(255 255 255 / 10%) !important;
   }
 
   &.nav-link-admin {
     color: #f07a50 !important;
   }
+}
+
+.dropdown-arrow {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 /* ─── Right action buttons ───────────────────────────────────────────────────── */
@@ -107,6 +108,10 @@
   @apply font-bold text-jungle-600 !important;
 }
 
+:host-context(html.dark) .active-lang {
+  @apply text-jungle-400 !important;
+}
+
 .lang-flag {
   @apply mr-2;
 }
@@ -120,12 +125,12 @@
 .site-footer {
   @apply py-8 mt-auto;
 
-  background: rgb(26 62 48 / 95%);
+  background: rgb(15 40 28 / 96%);
   color: #94a3b8;
 }
 
 :host-context(html.dark) .site-footer {
-  background: rgb(2 6 23 / 95%);
+  background: rgb(2 8 6 / 97%);
 }
 
 .footer-inner {
@@ -150,7 +155,9 @@
   a {
     @apply text-slate-400 no-underline text-sm transition-colors;
 
-    &:hover { @apply text-slate-100; }
+    &:hover {
+      @apply text-slate-100;
+    }
   }
 }
 

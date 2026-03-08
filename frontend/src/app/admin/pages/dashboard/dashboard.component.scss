@@ -1,1 +1,8 @@
 // home.component styles
+
+/* Dashboard dark mode overrides */
+:host-context(html.dark) {
+  h1 {
+    @apply text-slate-100;
+  }
+}

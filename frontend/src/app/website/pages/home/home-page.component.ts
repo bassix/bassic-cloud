@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,4 +11,12 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
 })
-export class HomePageComponent {}
+export class HomePageComponent implements OnInit {
+  public lang = 'en';
+
+  public constructor(private readonly route: ActivatedRoute) {}
+
+  public ngOnInit(): void {
+    this.lang = this.route.parent?.snapshot.paramMap.get('lang') ?? 'en';
+  }
+}

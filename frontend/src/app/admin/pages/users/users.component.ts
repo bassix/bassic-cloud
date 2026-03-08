@@ -116,32 +116,40 @@ export class UsersComponent implements OnInit {
   }
 
   public saveUser(): void {
-    if (this.userForm.invalid) return;
+    if (this.userForm.invalid) {
+      return;
+    }
 
-    const data = { ...this.userForm.value };
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const rawValue: { username?: string; email?: string; password?: string; roles?: string[]; locale?: string } = { ...this.userForm.value };
+    const data: Partial<User> & { password?: string } = rawValue;
 
     if (!data.password) {
       delete data.password;
     }
 
+    const createData: Partial<User> & { password: string } = {
+      ...data,
+      password: data.password ?? '',
+    };
     const request = this.editingUser
       ? this.userService.updateUser(this.editingUser.id, data)
-      : this.userService.createUser(data);
+      : this.userService.createUser(createData);
 
     request.subscribe({
       next: () => {
         this.snackBar.open(
-          this.translate.instant('common.save') + ' ✓',
-          this.translate.instant('common.close'),
+          (this.translate.instant('common.save') as string) + ' ✓',
+          this.translate.instant('common.close') as string,
           { duration: 2000 },
         );
         this.closeForm();
         this.loadUsers();
       },
-      error: (err) => {
+      error: (err: { error?: { message?: string } }) => {
         this.snackBar.open(
-          err.error?.message || this.translate.instant('common.error'),
-          this.translate.instant('common.close'),
+          err.error?.message ?? (this.translate.instant('common.error') as string),
+          this.translate.instant('common.close') as string,
           { duration: 4000 },
         );
       },
@@ -149,12 +157,14 @@ export class UsersComponent implements OnInit {
   }
 
   public deleteUser(user: User): void {
-    if (!confirm(this.translate.instant('users.confirmDelete'))) return;
+    if (!confirm(this.translate.instant('users.confirmDelete') as string)) {
+      return;
+    }
 
     this.userService.deleteUser(user.id).subscribe({
       next: () => {
         this.loadUsers();
-        this.snackBar.open('Deleted', this.translate.instant('common.close'), { duration: 2000 });
+        this.snackBar.open('Deleted', this.translate.instant('common.close') as string, { duration: 2000 });
       },
     });
   }

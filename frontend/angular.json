@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "../public/cloud",
+            "outputPath": "../public/spa",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],

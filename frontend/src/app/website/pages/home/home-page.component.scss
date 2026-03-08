@@ -1,21 +1,33 @@
-/* ─── Home page overrides the default page-wrapper for a full-viewport hero ─── */
-.home-page {
-  @apply relative overflow-hidden;
+/* ═══════════════════════════════════════════════════════════════════════════
+   Home Page — Apple Liquid Glass Design
+   Uses global .glass / .glass-card classes for the frosted glass effect.
+   Dark mode uses :host-context(html.dark) for component-level overrides.
+═══════════════════════════════════════════════════════════════════════════ */
 
-  min-height: calc(100vh - 60px);
-  background: linear-gradient(135deg, theme('colors.jungle.50') 0%, #fff 50%, theme('colors.jungle.50') 100%);
+/* ─── Page background ────────────────────────────────────────────────────────── */
+.home-page {
+  @apply relative overflow-hidden min-h-screen;
+
+  background: linear-gradient(135deg,
+    theme('colors.jungle.50') 0%,
+    #ffffff 50%,
+    theme('colors.jungle.50') 100%);
+  background-attachment: fixed;
 }
 
 :host-context(html.dark) .home-page {
-  background: linear-gradient(135deg, theme('colors.jungle.950') 0%, #0a1628 50%, theme('colors.jungle.950') 100%);
+  background: linear-gradient(135deg,
+    theme('colors.jungle.950') 0%,
+    #030d07 50%,
+    theme('colors.jungle.950') 100%);
 }
 
-/* ─── Animated background blobs ─────────────────────────────────────────────── */
+/* ─── Animated blobs ─────────────────────────────────────────────────────────── */
 .blob {
   @apply absolute rounded-full pointer-events-none;
 
   filter: blur(80px);
-  opacity: 0.35;
+  opacity: 0.3;
   animation: float 12s ease-in-out infinite;
 }
 
@@ -25,7 +37,6 @@
   background: radial-gradient(circle, theme('colors.jungle.300'), theme('colors.jungle.500'));
   top: -8rem;
   left: -4rem;
-  animation-delay: 0s;
 }
 
 .blob-2 {
@@ -47,21 +58,27 @@
 }
 
 :host-context(html.dark) .blob {
-  opacity: 0.15;
+  opacity: 0.12;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-24px) scale(1.04); }
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-24px) scale(1.04);
+  }
 }
 
 /* ─── Hero section ───────────────────────────────────────────────────────────── */
 .hero-section {
   @apply flex items-center justify-center px-6;
 
-  min-height: calc(100vh - 60px);
-  padding-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 4rem;
+  min-height: calc(100vh - 10rem);
 }
 
 .hero-inner {
@@ -70,8 +87,9 @@
   max-width: 680px;
 }
 
+/* ─── Glass hero card ────────────────────────────────────────────────────────── */
 .hero-glass {
-  @apply glass-card text-center;
+  @apply text-center;
 
   padding: 3rem 2.5rem;
   box-shadow:
@@ -108,7 +126,7 @@
   height: 40px;
 }
 
-/* ─── Hero text ──────────────────────────────────────────────────────────────── */
+/* ─── Text styles ────────────────────────────────────────────────────────────── */
 .hero-title {
   @apply font-extrabold mb-2 leading-tight;
 
@@ -121,6 +139,7 @@
 :host-context(html.dark) .hero-title {
   background: linear-gradient(135deg, theme('colors.jungle.300'), theme('colors.jungle.500'));
   background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .hero-tagline {
@@ -144,7 +163,7 @@
 }
 
 :host-context(html.dark) .hero-greeting {
-  @apply text-slate-200;
+  @apply text-slate-100;
 }
 
 .hero-description {
@@ -155,7 +174,7 @@
   @apply text-slate-400;
 }
 
-/* ─── Feature chips ──────────────────────────────────────────────────────────── */
+/* ─── Feature chips (each chip uses .glass for frosted backdrop) ──────────── */
 .feature-grid {
   @apply grid gap-3 mb-8;
 
@@ -166,8 +185,6 @@
   @apply flex items-center gap-2 rounded-xl text-sm font-medium text-jungle-800;
 
   padding: 0.625rem 1rem;
-  background: rgb(16 185 129 / 8%);
-  border: 1px solid rgb(16 185 129 / 20%);
 
   mat-icon {
     @apply text-jungle-500 flex-shrink-0;
@@ -181,15 +198,12 @@
 :host-context(html.dark) .feature-chip {
   @apply text-jungle-300;
 
-  background: rgb(110 231 183 / 8%);
-  border-color: rgb(110 231 183 / 15%);
-
   mat-icon {
     @apply text-jungle-400;
   }
 }
 
-/* ─── CTA row ────────────────────────────────────────────────────────────────── */
+/* ─── CTA buttons ────────────────────────────────────────────────────────────── */
 .cta-row {
   @apply flex gap-3 justify-center flex-wrap;
 }
@@ -201,20 +215,28 @@
 }
 
 .cta-secondary {
-  @apply font-semibold rounded-xl px-6 text-jungle-600 !important;
+  @apply font-semibold rounded-xl px-6 text-jungle-700 !important;
 
-  border-color: theme('colors.jungle.500') !important;
+  border-color: theme('colors.jungle.400') !important;
 }
 
 :host-context(html.dark) .cta-secondary {
   @apply text-jungle-400 !important;
 
-  border-color: theme('colors.jungle.400') !important;
+  border-color: theme('colors.jungle.500') !important;
 }
 
 /* ─── Responsive ─────────────────────────────────────────────────────────────── */
 @media (width <= 480px) {
-  .hero-glass { padding: 2rem 1.25rem; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .cta-row { flex-direction: column; }
+  .hero-glass {
+    padding: 2rem 1.25rem;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-row {
+    @apply flex-col;
+  }
 }

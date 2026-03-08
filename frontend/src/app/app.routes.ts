@@ -7,7 +7,7 @@ export const routes: Routes = [
   // ── Setup (first-run wizard, no layout) ─────────────────────────────────
   {
     path: 'setup',
-    loadComponent: () => import('./features/auth/setup/setup.component').then(m => m.SetupComponent),
+    loadComponent: () => import('./website/pages/setup/setup-page.component').then(m => m.SetupPageComponent),
     canActivate: [setupGuard],
   },
 

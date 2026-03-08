@@ -46,13 +46,13 @@ stylelint: ## Run Stylelint on SCSS files
 stylelint-fix: ## Fix Stylelint issues automatically
 	cd frontend && yarn stylelint 'src/**/*.scss' --fix
 
-pipeline: php-lint ts-lint stylelint backend-test frontend-test ## Run full CI pipeline (all linters + all tests)
-
 php-lint: ## Check PHP code style (dry-run)
 	php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes --dry-run --diff
 
 php-fix: ## Fix PHP code style
 	php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes
+
+pipeline: php-lint ts-lint stylelint backend-test frontend-test ## Run full CI pipeline (all linters + all tests)
 
 dev-backend: ## Start Symfony dev server with 10G upload limit (overrides system 2M default)
 	# config/php-ini/upload.ini raises upload_max_filesize and post_max_size to 10G.

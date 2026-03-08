@@ -15,13 +15,15 @@ export const authGuard: CanActivateFn = () => {
     return true;
   }
 
+  const lang = localStorage.getItem('basscloud_lang') ?? 'en';
+
   return authService.checkSetupStatus().pipe(
     map((response) => {
       if (!response.data.setupComplete) {
         return router.createUrlTree(['/setup']);
       }
 
-      return router.createUrlTree(['/login']);
+      return router.createUrlTree(['/', lang, 'login']);
     }),
     catchError(() => {
       // If API call fails (e.g. no DB yet), assume setup needed

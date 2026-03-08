@@ -1,36 +1,37 @@
 import { Component } from '@angular/core';
-
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '@core/services/auth.service';
 
+/** First-run setup page at /setup — creates the first admin user. */
 @Component({
-    selector: 'app-setup',
-    imports: [
+  selector: 'app-setup-page',
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatButtonModule,
-    MatSelectModule,
+    MatFormFieldModule,
     MatIconModule,
-    MatProgressSpinnerModule,
+    MatInputModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
     MatSnackBarModule,
-    TranslateModule
-],
-    templateUrl: './setup.component.html',
-    styleUrls: ['./setup.component.scss']
+    TranslateModule,
+  ],
+  templateUrl: './setup-page.component.html',
+  styleUrls: ['./setup-page.component.scss'],
 })
-export class SetupComponent {
+export class SetupPageComponent {
   public form: FormGroup;
   public loading = false;
   public hidePassword = true;
@@ -50,7 +51,7 @@ export class SetupComponent {
       locale: ['en'],
     });
 
-    // Update UI language when locale selection changes
+    // Sync UI language when locale selection changes
     this.form.get('locale')?.valueChanges.subscribe((locale: string) => {
       this.translate.use(locale);
       localStorage.setItem('basscloud_lang', locale);
@@ -58,27 +59,36 @@ export class SetupComponent {
   }
 
   public onSubmit(): void {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      return;
+    }
 
     this.loading = true;
     this.errorMessage = '';
 
-    this.authService.setup(this.form.value).subscribe({
+    const formVal = this.form.value as {
+      username: string;
+      email: string;
+      password: string;
+      locale: string;
+    };
+
+    this.authService.setup(formVal).subscribe({
       next: (response) => {
+        this.loading = false;
+
         if (response.success) {
           this.snackBar.open(
-            this.translate.instant('setup.success'),
-            this.translate.instant('common.close'),
+            this.translate.instant('setup.success') as string,
+            this.translate.instant('common.close') as string,
             { duration: 3000 },
           );
-          this.router.navigate(['/login']);
+          void this.router.navigate(['/', formVal.locale, 'login']);
         }
-
-        this.loading = false;
       },
-      error: (err) => {
-        this.errorMessage = err.error?.message || this.translate.instant('common.error');
+      error: (err: { error?: { message?: string } }) => {
         this.loading = false;
+        this.errorMessage = err.error?.message ?? (this.translate.instant('common.error') as string);
       },
     });
   }

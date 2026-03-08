@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 
 /**
  * Only allows access to the setup page if setup is not yet complete.
- * Redirects to /login if setup is already done.
+ * Redirects to the language-prefixed home page if setup is already done.
  */
 export const setupGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
@@ -17,7 +17,9 @@ export const setupGuard: CanActivateFn = () => {
         return true;
       }
 
-      return router.createUrlTree(['/login']);
+      const lang = localStorage.getItem('basscloud_lang') ?? 'en';
+
+      return router.createUrlTree(['/', lang]);
     }),
     catchError(() => {
       // If API fails (e.g. no DB yet), allow access to setup

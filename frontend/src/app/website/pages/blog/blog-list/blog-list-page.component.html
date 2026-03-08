@@ -1,57 +1,66 @@
-<div class="page-container">
-  <div class="page-hero">
-    <h1>{{ 'blog.title' | translate }}</h1>
-    <p>{{ 'blog.listDescription' | translate }}</p>
-  </div>
+<div class="page-wrapper">
+  <div class="content-container">
 
-  @if (loading) {
-    <div class="centered"><mat-spinner diameter="48"></mat-spinner></div>
-  } @else if (error) {
-    <div class="centered error-msg">
-      <mat-icon>error_outline</mat-icon>
-      <p>{{ 'common.error' | translate }}</p>
+    <div class="page-hero">
+      <mat-icon class="page-hero-icon">article</mat-icon>
+      <h1 class="page-hero-title">{{ 'blog.title' | translate }}</h1>
+      <p class="page-hero-desc">{{ 'blog.listDescription' | translate }}</p>
     </div>
-  } @else if (posts.length === 0) {
-    <div class="centered">
-      <mat-icon>article</mat-icon>
-      <p>{{ 'blog.noPosts' | translate }}</p>
-    </div>
-  } @else {
-    <div class="posts-grid">
-      @for (post of posts; track post.id) {
-        <article class="post-card glass-card">
-          <div class="post-meta">
-            <span class="post-author">
-              <mat-icon>person</mat-icon> {{ post.authorName }}
-            </span>
-            @if (post.publishedAt) {
-              <span class="post-date">
-                <mat-icon>calendar_today</mat-icon>
-                {{ post.publishedAt | localeDate:'medium' }}
+
+    @if (loading) {
+      <div class="centered">
+        <mat-spinner diameter="48"></mat-spinner>
+      </div>
+    } @else if (error) {
+      <div class="centered">
+        <mat-icon class="centered-icon">error_outline</mat-icon>
+        <p class="centered-text">{{ 'common.error' | translate }}</p>
+      </div>
+    } @else if (posts.length === 0) {
+      <div class="empty-state glass-card">
+        <mat-icon class="empty-icon">auto_stories</mat-icon>
+        <h2 class="empty-title">{{ 'blog.noPosts' | translate }}</h2>
+        <p class="empty-desc">{{ 'blog.comeBackSoon' | translate }}</p>
+      </div>
+    } @else {
+      <div class="posts-grid">
+        @for (post of posts; track post.id) {
+          <article class="post-card glass-card">
+            <div class="post-meta">
+              <span>
+                <mat-icon>person</mat-icon>
+                {{ post.authorName }}
               </span>
-            }
-          </div>
-
-          <h2 class="post-title">{{ post.title }}</h2>
-
-          @if (post.subtitle) {
-            <p class="post-subtitle">{{ post.subtitle }}</p>
-          }
-
-          @if (post.tags && post.tags.length) {
-            <mat-chip-set class="post-tags">
-              @for (tag of post.tags; track tag) {
-                <mat-chip>{{ tag }}</mat-chip>
+              @if (post.publishedAt) {
+                <span>
+                  <mat-icon>calendar_today</mat-icon>
+                  {{ post.publishedAt | localeDate:'medium' }}
+                </span>
               }
-            </mat-chip-set>
-          }
+            </div>
 
-          <a mat-button class="read-more" [routerLink]="['/blog', post.slug]">
-            {{ 'blog.readMore' | translate }}
-            <mat-icon>arrow_forward</mat-icon>
-          </a>
-        </article>
-      }
-    </div>
-  }
+            <h2 class="post-title">{{ post.title }}</h2>
+
+            @if (post.subtitle) {
+              <p class="post-subtitle">{{ post.subtitle }}</p>
+            }
+
+            @if (post.tags && post.tags.length) {
+              <mat-chip-set class="post-tags">
+                @for (tag of post.tags; track tag) {
+                  <mat-chip>{{ tag }}</mat-chip>
+                }
+              </mat-chip-set>
+            }
+
+            <a mat-button class="read-more" [routerLink]="['/', lang, 'blog', post.slug]">
+              {{ 'blog.readMore' | translate }}
+              <mat-icon>arrow_forward</mat-icon>
+            </a>
+          </article>
+        }
+      </div>
+    }
+
+  </div>
 </div>

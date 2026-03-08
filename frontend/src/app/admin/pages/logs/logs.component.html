@@ -1,5 +1,5 @@
 <div class="space-y-4">
-  <h2 class="text-2xl font-bold text-gray-800">{{ 'logs.title' | translate }}</h2>
+  <h2 class="admin-page-title">{{ 'logs.title' | translate }}</h2>
 
   <mat-tab-group (selectedTabChange)="onTabChange($event.index)">
     <!-- All Logs -->
@@ -24,7 +24,7 @@
           <ng-container matColumnDef="ip">
             <th mat-header-cell *matHeaderCellDef>{{ 'logs.ip' | translate }}</th>
             <td mat-cell *matCellDef="let log">
-              <code class="text-xs bg-gray-100 px-2 py-0.5 rounded">{{ log.ip }}</code>
+              <code class="text-xs bg-gray-100 dark:bg-jungle-800 dark:text-jungle-200 px-2 py-0.5 rounded">{{ log.ip }}</code>
             </td>
           </ng-container>
 
@@ -39,7 +39,7 @@
 
           <ng-container matColumnDef="detail">
             <th mat-header-cell *matHeaderCellDef>{{ 'logs.detail' | translate }}</th>
-            <td mat-cell *matCellDef="let log" class="text-sm text-gray-500 truncate max-w-xs">
+            <td mat-cell *matCellDef="let log" class="text-sm text-gray-500 dark:text-slate-400 truncate max-w-xs">
               {{ log.detail || '-' }}
             </td>
           </ng-container>
@@ -74,7 +74,7 @@
           <ng-container matColumnDef="ip">
             <th mat-header-cell *matHeaderCellDef>{{ 'logs.ip' | translate }}</th>
             <td mat-cell *matCellDef="let log">
-              <code class="text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded">{{ log.ip }}</code>
+              <code class="text-xs bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 px-2 py-0.5 rounded">{{ log.ip }}</code>
             </td>
           </ng-container>
 

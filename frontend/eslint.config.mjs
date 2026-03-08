@@ -22,35 +22,9 @@ export default [
   ...compat.extends('plugin:@nx/angular', 'plugin:@angular-eslint/template/process-inline-templates'),
   {
     plugins: {
-      '@nx': nxEslintPlugin,
       '@typescript-eslint': typescriptEslintEslintPlugin,
       import: eslintPluginImport,
       '@stylistic': stylistic,
-    },
-  },
-  {
-    files: [
-      '**/*.ts',
-      '**/*.tsx',
-      '**/*.js',
-      '**/*.jsx',
-    ],
-    rules: {
-      '@nx/enforce-module-boundaries': [
-        'error',
-        {
-          enforceBuildableLibDependency: true,
-          allow: [],
-          depConstraints: [
-            {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: [
-                '*',
-              ],
-            },
-          ],
-        },
-      ],
     },
   },
   ...compat.config({

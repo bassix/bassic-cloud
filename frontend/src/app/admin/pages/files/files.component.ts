@@ -166,8 +166,8 @@ export class FilesComponent implements OnInit {
           if (task.progress.state === 'done') {
             this.loadFiles();
             this.snackBar.open(
-              this.translate.instant('files.uploadSuccess', { name: file.name }),
-              this.translate.instant('common.close'),
+              this.translate.instant('files.uploadSuccess', { name: file.name }) as string,
+              this.translate.instant('common.close') as string,
               { duration: 3000 },
             );
           }
@@ -197,7 +197,7 @@ export class FilesComponent implements OnInit {
   }
 
   public deleteFile(file: FileItem): void {
-    if (!confirm(this.translate.instant('files.confirmDelete'))) {
+    if (!confirm(this.translate.instant('files.confirmDelete') as string)) {
       return;
     }
 

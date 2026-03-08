@@ -63,7 +63,7 @@ export class GroupsComponent implements OnInit {
   public save(): void {
     if (this.form.invalid) { return; }
 
-    const body = this.form.value;
+    const body = this.form.value as { name: string; description: string };
     const req = this.editingId
       ? this.http.put(`${environment.apiUrl}/groups/${this.editingId}`, body)
       : this.http.post(`${environment.apiUrl}/groups`, body);
@@ -72,7 +72,7 @@ export class GroupsComponent implements OnInit {
   }
 
   public deleteGroup(group: UserGroup): void {
-    if (!confirm(this.translate.instant('groups.confirmDelete'))) { return; }
+    if (!confirm(this.translate.instant('groups.confirmDelete') as string)) { return; }
 
     this.http.delete(`${environment.apiUrl}/groups/${group.id}`).subscribe({ next: () => void this.loadGroups() });
   }

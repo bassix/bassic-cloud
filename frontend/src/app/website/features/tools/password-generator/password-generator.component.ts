@@ -82,9 +82,11 @@ export class PasswordGeneratorComponent {
       return;
     }
 
-    navigator.clipboard.writeText(this.generatedPassword).then(() => {
+    const pwd = this.generatedPassword;
+
+    navigator.clipboard.writeText(pwd).then(() => {
       this.snackBar.open(
-        this.translate.instant('tools.copied'),
+        this.translate.instant('tools.copied') as string,
         '',
         { duration: 2000, panelClass: 'success-snack' },
       );
@@ -92,12 +94,12 @@ export class PasswordGeneratorComponent {
       // fallback for older browsers
       const el = document.createElement('textarea');
 
-      el.value = this.generatedPassword;
+      el.value = pwd;
       document.body.appendChild(el);
       el.select();
       document.execCommand('copy');
       document.body.removeChild(el);
-      this.snackBar.open(this.translate.instant('tools.copied'), '', { duration: 2000 });
+      this.snackBar.open(this.translate.instant('tools.copied') as string, '', { duration: 2000 });
     });
   }
 

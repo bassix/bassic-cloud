@@ -1,8 +1,13 @@
 <div class="page-wrapper">
   <div class="content-container">
+    <div class="page-hero">
+      <mat-icon class="page-hero-icon">gavel</mat-icon>
+      <h1 class="page-hero-title">
+        {{ (type === 'imprint' ? 'legal.imprint' : 'legal.privacy') | translate }}
+      </h1>
+    </div>
+
     <div class="glass-card legal-card">
-      <mat-icon class="legal-icon">gavel</mat-icon>
-      <h1>{{ (type === 'imprint' ? 'legal.imprint' : 'legal.privacy') | translate }}</h1>
       <div class="legal-body">
         <p>{{ 'legal.placeholderText' | translate }}</p>
       </div>

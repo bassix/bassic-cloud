@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -39,6 +39,7 @@ export class BlogListComponent implements OnInit {
   public constructor(
     private readonly http: HttpClient,
     private readonly translate: TranslateService,
+    private readonly router: Router,
   ) {}
 
   public ngOnInit(): void { this.loadPosts(); }
@@ -50,7 +51,7 @@ export class BlogListComponent implements OnInit {
   }
 
   public deletePost(post: BlogPost): void {
-    if (!confirm(this.translate.instant('blog.confirmDelete'))) { return; }
+    if (!confirm(this.translate.instant('blog.confirmDelete') as string)) { return; }
 
     this.http.delete(`${environment.apiUrl}/blog/admin/posts/${post.id}`).subscribe({
       next: () => void this.loadPosts(),
@@ -61,5 +62,9 @@ export class BlogListComponent implements OnInit {
     const map: Record<string, string> = { published: 'text-jungle-600', draft: 'text-sand-500', archived: 'text-coral-400' };
 
     return map[status] ?? '';
+  }
+
+  public createNew(): void {
+    void this.router.navigate(['/admin/blog/new']);
   }
 }

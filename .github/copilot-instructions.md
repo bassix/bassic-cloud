@@ -55,23 +55,22 @@ frontend/src/app/
 │   │   ├── home/       # HomePageComponent
 │   │   ├── legal/      # LegalPageComponent (imprint + privacy)
 │   │   ├── login/      # LoginPageComponent (wraps LoginComponent)
+│   │   ├── setup/      # SetupPageComponent (first-run wizard, no layout)
 │   │   └── tools/      # ToolsPageComponent + PwGenPageComponent
 │   └── website.routes.ts
 │
-├── admin/              # Protected admin area (/admin/*)
-│   ├── layout/         # AdminLayoutComponent (sidebar + topbar shell)
-│   ├── pages/          # Admin route-level pages
-│   │   ├── blog/       # BlogListComponent + blog-editor/BlogEditorComponent
-│   │   ├── dashboard/  # DashboardComponent
-│   │   ├── files/      # FilesComponent
-│   │   ├── groups/     # GroupsComponent
-│   │   ├── logs/       # LogsComponent
-│   │   ├── media/      # MediaComponent
-│   │   └── users/      # UsersComponent
-│   └── admin.routes.ts
-│
-└── features/           # Residual: only features/auth/setup (first-run wizard)
-    └── auth/setup/     # SetupComponent — kept here, used by setupGuard
+└── admin/              # Protected admin area (/admin/*)
+    ├── features/       # Self-contained feature components for the admin area
+    ├── layout/         # AdminLayoutComponent (sidebar + topbar shell)
+    ├── pages/          # Admin route-level pages
+    │   ├── blog/       # BlogListComponent + blog-editor/BlogEditorComponent
+    │   ├── dashboard/  # DashboardComponent
+    │   ├── files/      # FilesComponent
+    │   ├── groups/     # GroupsComponent
+    │   ├── logs/       # LogsComponent
+    │   ├── media/      # MediaComponent
+    │   └── users/      # UsersComponent
+    └── admin.routes.ts
 ```
 
 ---
@@ -101,7 +100,7 @@ frontend/src/app/
 /admin/blog/:id/edit        → BlogEditorComponent
 /admin/logs                 → LogsComponent
 
-/setup                      → SetupComponent (setupGuard — only before first admin user)
+/setup                      → SetupPageComponent (setupGuard — only before first admin user)
 ```
 
 ---
@@ -120,22 +119,52 @@ frontend/src/app/
 The design follows Apple's Liquid Glass aesthetic:
 
 ```scss
-// Available global utility classes (styles.scss):
-.glass          // frosted glass panel (light mode)
-.glass-dark     // frosted glass panel (dark mode)
-.glass-card     // glass + rounded-2xl (auto dark-mode aware)
-.glass-menu     // for MatMenu overlays
+// Available global utility classes (styles.scss @layer components):
+.glass          // frosted glass panel — bg: rgb(255 255 255 / 65%), backdrop-blur
+.glass-dark     // frosted glass panel dark variant
+.glass-card     // glass + rounded-2xl (auto dark-mode aware via html.dark .glass-card)
+.glass-menu     // for MatMenu overlays — applied as panelClass="glass-menu"
 
-// Page structure (all public pages use these):
-.page-wrapper         // full-page background gradient
-.content-container    // max-w-5xl centered content area
-.page-hero            // centered icon + title + subtitle
-.page-hero-icon
-.page-hero-title
-.page-hero-desc
+// Page structure — ALL public website pages MUST use these wrappers:
+.page-wrapper         // full-viewport gradient background, pt-16 pb-20
+.content-container    // max-w-5xl mx-auto px-6
+.page-hero            // text-center py-14 mb-8
+.page-hero-icon       // 56px mat-icon, text-jungle-500
+.page-hero-title      // text-4xl font-extrabold (dark: text-slate-100)
+.page-hero-desc       // text-lg text-slate-500 (dark: text-slate-400)
+
+// Admin utility classes:
+.admin-page-title     // text-2xl font-bold (dark: text-slate-100)
+.stat-card            // glass-card + flex layout for dashboard stats
+.stat-value           // text-2xl font-bold (dark: text-slate-100)
+.stat-label           // text-sm text-slate-500 (dark: text-slate-400)
 ```
 
-**Always use `@apply` in SCSS files.** Raw hex colors are only allowed when Tailwind doesn't have an equivalent (e.g. gradients, `clamp()`).
+**Dark mode** is driven by `html.dark` class toggled by `ThemeService`.
+Use `:host-context(html.dark)` in component SCSS for component-level overrides.
+Global dark overrides live in `styles.scss` as `html.dark .class-name {}`.
+
+### ⚠️ CRITICAL: `@layer` vs Material Specificity
+
+**NEVER** put Angular Material dark mode overrides inside `@layer components`.
+CSS layers have lower specificity than unlayered rules. Material CSS is unlayered,
+so `@layer` overrides always lose:
+
+```scss
+// ❌ WRONG — loses to Material's unlayered defaults
+@layer components {
+  html.dark .mat-mdc-card { background: ... !important; }
+}
+
+// ✅ CORRECT — outside @layer, beats Material
+html.dark .mat-mdc-card { background: ... !important; }
+```
+
+**Rule:** Custom utility classes (`.glass`, `.page-wrapper`, etc.) → inside `@layer components`.
+Material component overrides (`html.dark .mat-mdc-*`) → **outside** `@layer`.
+
+**Always use `@apply`** in SCSS files for Tailwind utilities.
+Use raw CSS `rgb(r g b / alpha%)` syntax for opacity values — never Tailwind arbitrary `[0.08]` classes outside `@layer components`.
 
 ---
 
@@ -205,3 +234,25 @@ All steps must pass with exit code 0 before merging.
 - JWT keys: `config/jwt/private.pem` + `config/jwt/public.pem`
 - File uploads: `var/uploads/`
 - Thumbnails: `var/thumbnails/`
+
+---
+
+## SPA Deployment Architecture
+
+The Angular SPA is a **headless frontend** served by Symfony:
+
+- `<base href="/">` — Angular routes are root-relative (no `/cloud/browser/` prefix)
+- **Build output**: `public/spa/browser/` (Angular's `outputPath: ../public/spa`)
+- **`SpaController`** handles two tasks:
+  1. **Static assets** (`*.js`, `*.css`, `*.ico`, etc.) — served from `public/spa/browser/` with cache headers
+  2. **SPA catch-all** — all other non-API routes return `index.html` for Angular routing
+- **API prefix**: all backend endpoints under `/api/` — never caught by the SPA controller
+- **Thumbnails**: served via `/thumb/` — also excluded from the SPA catch-all
+- The `public/.htaccess` standard Symfony rewrite sends everything through `index.php`
+
+### First-Run Setup Flow
+
+1. User opens `/` → `LangRedirectComponent` calls `GET /api/setup/status`
+2. If `setupComplete: false` → redirect to `/setup`
+3. `SetupPageComponent` (guarded by `setupGuard`) presents the first-run wizard
+4. After setup → redirect to `/:lang/login`

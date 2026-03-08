@@ -84,20 +84,29 @@ export class AuthService {
     );
   }
 
+  /** Called by JWT interceptor when a 401 response is received */
+  public clearExpiredSession(): void {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+    this.currentUser$.next(null);
+  }
+
   private clearSession(): void {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
     this.currentUser$.next(null);
-    this.router.navigate(['/login']);
+    void this.router.navigate(['/']);
   }
 
   private loadStoredUser(): User | null {
     const stored = localStorage.getItem(USER_KEY);
 
-    if (!stored) return null;
+    if (!stored) {
+      return null;
+    }
 
     try {
-      return JSON.parse(stored);
+      return JSON.parse(stored) as User;
     } catch {
       return null;
     }

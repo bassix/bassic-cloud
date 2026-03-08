@@ -7,7 +7,8 @@
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-inner">
-      <div class="hero-glass">
+      <div class="hero-glass glass-card">
+        <!-- Logo -->
         <div class="hero-logo">
           <div class="logo-ring">
             <mat-icon class="logo-icon">cloud</mat-icon>
@@ -24,19 +25,19 @@
 
         <!-- Feature chips -->
         <div class="feature-grid">
-          <div class="feature-chip">
+          <div class="feature-chip glass">
             <mat-icon>folder_open</mat-icon>
             <span>{{ 'home.featureFiles' | translate }}</span>
           </div>
-          <div class="feature-chip">
+          <div class="feature-chip glass">
             <mat-icon>photo_library</mat-icon>
             <span>{{ 'home.featureGallery' | translate }}</span>
           </div>
-          <div class="feature-chip">
+          <div class="feature-chip glass">
             <mat-icon>play_circle</mat-icon>
             <span>{{ 'home.featureMedia' | translate }}</span>
           </div>
-          <div class="feature-chip">
+          <div class="feature-chip glass">
             <mat-icon>article</mat-icon>
             <span>{{ 'home.featureBlog' | translate }}</span>
           </div>
@@ -44,11 +45,11 @@
 
         <!-- CTA buttons -->
         <div class="cta-row">
-          <a mat-flat-button class="cta-primary" routerLink="/blog">
+          <a mat-flat-button class="cta-primary" [routerLink]="['/', lang, 'blog']">
             <mat-icon>article</mat-icon>
             {{ 'home.exploreBlog' | translate }}
           </a>
-          <a mat-stroked-button class="cta-secondary" routerLink="/login">
+          <a mat-stroked-button class="cta-secondary" [routerLink]="['/', lang, 'login']">
             <mat-icon>login</mat-icon>
             {{ 'home.signIn' | translate }}
           </a>

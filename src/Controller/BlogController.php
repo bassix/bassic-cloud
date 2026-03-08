@@ -89,6 +89,7 @@ class BlogController extends ApiController
         }
 
         $post = new BlogPost();
+        $post->setAuthor($user);
         $this->hydratePost($post, $data, $user);
 
         $this->em->persist($post);
@@ -187,7 +188,13 @@ class BlogController extends ApiController
             $post->setPublishedAt(new \DateTimeImmutable((string) $data['publishedAt']));
         }
 
-        if (null === $post->getAuthor() || !($post->getAuthor() instanceof User)) {
+        try {
+            $author = $post->getAuthor();
+        } catch (\Error) {
+            $author = null;
+        }
+
+        if (!$author instanceof User) {
             $post->setAuthor($user);
         }
     }

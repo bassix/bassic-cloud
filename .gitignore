@@ -56,5 +56,5 @@ phpstan.neon
 /frontend/dist/
 /frontend/.angular
 /frontend/.yarn/
-/public/cloud/
+/public/spa/
 ### < Frontend ###

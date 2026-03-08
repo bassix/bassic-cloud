@@ -39,11 +39,6 @@ export const adminRoutes: Routes = [
           import('./pages/media/media.component').then(m => m.MediaComponent),
       },
       {
-        path: 'blog',
-        loadComponent: () =>
-          import('./pages/blog/blog-list.component').then(m => m.BlogListComponent),
-      },
-      {
         path: 'blog/new',
         loadComponent: () =>
           import('./pages/blog/blog-editor/blog-editor.component').then(m => m.BlogEditorComponent),
@@ -52,6 +47,11 @@ export const adminRoutes: Routes = [
         path: 'blog/:id/edit',
         loadComponent: () =>
           import('./pages/blog/blog-editor/blog-editor.component').then(m => m.BlogEditorComponent),
+      },
+      {
+        path: 'blog',
+        loadComponent: () =>
+          import('./pages/blog/blog-list.component').then(m => m.BlogListComponent),
       },
       {
         path: 'logs',

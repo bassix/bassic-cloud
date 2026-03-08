@@ -1,35 +1,9 @@
-.account-header {
-  @apply flex items-center gap-4 mb-8;
-
-  .account-icon {
-    @apply text-jungle-500;
-
-    font-size: 48px;
-    width: 48px;
-    height: 48px;
-  }
-
-  h1 {
-    @apply text-2xl font-extrabold text-jungle-900 m-0;
-  }
-
-  .account-username {
-    @apply text-slate-500 mt-1 text-sm;
-  }
-}
-
-:host-context(html.dark) .account-header {
-  h1 {
-    @apply text-slate-100;
-  }
-
-  .account-username {
-    @apply text-slate-400;
-  }
+.account-card {
+  @apply max-w-xl mx-auto;
 }
 
 .account-form {
-  @apply flex flex-col gap-4 mt-6;
+  @apply flex flex-col gap-4 p-8;
 }
 
 mat-form-field {

@@ -160,11 +160,13 @@
   },
   "common": {
     "save": "Speichern",
+    "saved": "Erfolgreich gespeichert.",
     "cancel": "Abbrechen",
     "close": "Schließen",
     "confirm": "Bestätigen",
     "loading": "Laden...",
     "error": "Ein Fehler ist aufgetreten.",
+    "required": "Dieses Feld ist erforderlich.",
     "page": "Seite",
     "of": "von",
     "noData": "Keine Daten verfügbar."
@@ -232,7 +234,6 @@
   "blog": {
     "title": "Blog",
     "listDescription": "Neueste Artikel, Neuigkeiten und Updates.",
-    "listDescription": "Neueste Artikel, Neuigkeiten und Updates.",
     "new": "Neuer Beitrag",
     "edit": "Beitrag bearbeiten",
     "delete": "Beitrag löschen",
@@ -252,7 +253,11 @@
     "media": "Medien",
     "coverImage": "Titelbild",
     "noSlug": "URL-Slug wird automatisch generiert",
+    "slugHint": "Leer lassen für automatische Generierung aus dem Titel",
+    "bodyPlaceholder": "Schreibe hier deinen Artikelinhalt…",
+    "backToList": "Zurück zur Liste",
     "noPosts": "Noch keine Blog-Beiträge.",
+    "comeBackSoon": "Wir arbeiten an neuen Inhalten — schau bald wieder vorbei!",
     "readMore": "Weiterlesen",
     "backToBlog": "Zurück zum Blog",
     "actions": "Aktionen"

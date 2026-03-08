@@ -160,11 +160,13 @@
   },
   "common": {
     "save": "Save",
+    "saved": "Saved successfully.",
     "cancel": "Cancel",
     "close": "Close",
     "confirm": "Confirm",
     "loading": "Loading...",
     "error": "An error occurred.",
+    "required": "This field is required.",
     "page": "Page",
     "of": "of",
     "noData": "No data available."
@@ -251,7 +253,11 @@
     "media": "Media",
     "coverImage": "Cover Image",
     "noSlug": "URL slug will be auto-generated",
+    "slugHint": "Leave empty to auto-generate from title",
+    "bodyPlaceholder": "Write your article content here…",
+    "backToList": "Back to List",
     "noPosts": "No blog posts yet.",
+    "comeBackSoon": "We're working on new content — check back soon!",
     "readMore": "Read More",
     "backToBlog": "Back to Blog",
     "actions": "Actions"

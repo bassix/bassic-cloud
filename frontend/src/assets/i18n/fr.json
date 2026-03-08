@@ -160,11 +160,13 @@
   },
   "common": {
     "save": "Enregistrer",
+    "saved": "Enregistré avec succès.",
     "cancel": "Annuler",
     "close": "Fermer",
     "confirm": "Confirmer",
     "loading": "Chargement...",
     "error": "Une erreur s'est produite.",
+    "required": "Ce champ est obligatoire.",
     "page": "Page",
     "of": "sur",
     "noData": "Aucune donnée disponible."
@@ -251,7 +253,11 @@
     "media": "Médias",
     "coverImage": "Image de couverture",
     "noSlug": "Le slug URL sera généré automatiquement",
+    "slugHint": "Laisser vide pour générer automatiquement depuis le titre",
+    "bodyPlaceholder": "Rédigez ici le contenu de votre article…",
+    "backToList": "Retour à la liste",
     "noPosts": "Aucun article de blog pour l'instant.",
+    "comeBackSoon": "Nous préparons de nouveaux contenus — revenez bientôt !",
     "readMore": "Lire la suite",
     "backToBlog": "Retour au blog",
     "actions": "Actions"

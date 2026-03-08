@@ -5,13 +5,48 @@
 }
 
 .centered {
-  @apply flex flex-col items-center gap-4 py-16 text-slate-400;
+  @apply flex flex-col items-center gap-4 py-20 text-slate-400;
+}
 
-  mat-icon {
-    font-size: 48px;
-    width: 48px;
-    height: 48px;
-  }
+.centered-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+}
+
+.centered-text {
+  @apply text-base m-0;
+}
+
+/* ── Empty state ────────────────────────────────────────────────────────────── */
+.empty-state {
+  @apply flex flex-col items-center text-center py-16 px-8 mx-auto;
+
+  max-width: 480px;
+}
+
+.empty-icon {
+  @apply text-jungle-400 mb-4;
+
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+}
+
+.empty-title {
+  @apply text-xl font-bold text-jungle-900 m-0 mb-2;
+}
+
+:host-context(html.dark) .empty-title {
+  @apply text-slate-100;
+}
+
+.empty-desc {
+  @apply text-slate-500 text-base m-0 leading-relaxed;
+}
+
+:host-context(html.dark) .empty-desc {
+  @apply text-slate-400;
 }
 
 .error-msg {
@@ -19,10 +54,12 @@
 }
 
 .post-card {
-  @apply glass-card flex flex-col gap-3 p-7 transition-transform duration-200;
+  @apply flex flex-col gap-3 p-7 transition-transform duration-200 cursor-default;
 
   &:hover {
-    @apply -translate-y-1 shadow-glass-lg;
+    @apply -translate-y-1;
+
+    box-shadow: 0 16px 40px rgb(0 0 0 / 12%);
   }
 }
 

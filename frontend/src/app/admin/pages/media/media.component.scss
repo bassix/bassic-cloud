@@ -11,7 +11,11 @@
 }
 
 .page-title {
-  @apply text-2xl font-bold text-jungle-900 dark:text-white m-0;
+  @apply text-2xl font-bold text-jungle-900 m-0;
+}
+
+:host-context(html.dark) .page-title {
+  @apply text-slate-100;
 }
 
 /* Gallery grid */
