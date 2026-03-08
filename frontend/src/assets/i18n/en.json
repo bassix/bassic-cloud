@@ -5,7 +5,15 @@
     "feature_files": "File Storage",
     "feature_gallery": "Photo Gallery",
     "feature_media": "Media Player",
-    "login": "Sign In"
+    "login": "Sign In",
+    "greetingTitle": "Welcome to BassCloud",
+    "greetingText": "BassCloud is your personal, self-hosted cloud platform. Manage your files, explore your photo gallery, play your media — all in one place, securely on your own hardware.",
+    "tools": "Tools",
+    "blog": "Blog",
+    "imprint": "Imprint",
+    "privacy": "Privacy Policy",
+    "comingSoon": "Coming soon",
+    "loginOverlay": "Sign In"
   },
   "setup": {
     "title": "Welcome to BassCloud",
@@ -26,15 +34,51 @@
     "invalid": "Invalid credentials."
   },
   "nav": {
+    "home": "Home",
     "dashboard": "Dashboard",
     "users": "Users",
+    "groups": "Groups",
     "files": "Files",
+    "media": "Media",
     "gallery": "Gallery",
     "player": "Media Player",
+    "blog": "Blog",
+    "tools": "Tools",
     "logs": "Logs",
     "logout": "Sign Out",
+    "login": "Sign In",
+    "account": "My Account",
+    "admin": "Admin",
+    "backToSite": "Back to Website",
     "darkMode": "Dark Mode",
-    "lightMode": "Light Mode"
+    "lightMode": "Light Mode",
+    "language": "Language",
+    "toggleSidebar": "Toggle Sidebar"
+  },
+  "home": {
+    "tagline": "Your personal cloud, your rules.",
+    "greetingTitle": "Welcome to BassCloud",
+    "greetingText": "BassCloud is your personal, self-hosted cloud platform. Manage your files, explore your photo gallery, play your media — all in one place, securely on your own hardware.",
+    "featureFiles": "File Storage",
+    "featureGallery": "Photo Gallery",
+    "featureMedia": "Media Player",
+    "featureBlog": "Blog",
+    "exploreBlog": "Explore Blog",
+    "signIn": "Sign In"
+  },
+  "account": {
+    "title": "My Account",
+    "email": "Email Address",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "passwordHint": "Leave empty to keep current password",
+    "passwordMismatch": "Passwords do not match.",
+    "saved": "Account updated successfully."
+  },
+  "legal": {
+    "imprint": "Legal Notice",
+    "privacy": "Privacy Policy",
+    "placeholderText": "This page is currently being prepared. Please check back soon."
   },
   "dashboard": {
     "title": "Dashboard",
@@ -78,7 +122,8 @@
     "clearDone": "Clear Finished",
     "uploadDone": "Uploaded",
     "uploadPending": "Pending",
-    "uploadSuccess": "File {{name}} uploaded successfully"
+    "uploadSuccess": "File {{name}} uploaded successfully",
+    "share": "Share"
   },
   "gallery": {
     "title": "Photo Gallery",
@@ -123,5 +168,92 @@
     "page": "Page",
     "of": "of",
     "noData": "No data available."
+  },
+  "tools": {
+    "title": "Tools",
+    "overview": "Tools Overview",
+    "description": "A collection of useful utilities to make your daily work easier.",
+    "passwordGenerator": "Password Generator",
+    "passwordGeneratorDesc": "Generate strong, secure passwords with custom rules.",
+    "openTool": "Open Tool",
+    "backToTools": "Back to Tools",
+    "passwordGenTitle": "Password Generator",
+    "length": "Length",
+    "includeNumbers": "Include Numbers",
+    "includeLowercase": "Include Lowercase",
+    "includeUppercase": "Include Uppercase",
+    "includeSpecial": "Include Special Characters",
+    "excludeAmbiguous": "Exclude Ambiguous Characters",
+    "generate": "Generate",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "generatedPassword": "Generated Password"
+  },
+  "media": {
+    "title": "Media",
+    "list": "List",
+    "grid": "Gallery",
+    "slider": "Slider",
+    "player": "Player",
+    "noMedia": "No media files available.",
+    "noFiles": "No files available."
+  },
+  "groups": {
+    "title": "Groups",
+    "create": "Create Group",
+    "edit": "Edit Group",
+    "delete": "Delete Group",
+    "confirmDelete": "Are you sure you want to delete this group?",
+    "name": "Group Name",
+    "description": "Description",
+    "members": "Members",
+    "owner": "Owner",
+    "created": "Created",
+    "actions": "Actions",
+    "addMember": "Add Member",
+    "removeMember": "Remove Member",
+    "noGroups": "No groups yet."
+  },
+  "share": {
+    "title": "Share File",
+    "withUsers": "Share with Users",
+    "withGroups": "Share with Groups",
+    "publicLink": "Public Link",
+    "publicLinkDesc": "Anyone with this link can access the file.",
+    "expiresAt": "Expires At",
+    "noExpiry": "No Expiry",
+    "copy": "Copy Link",
+    "copied": "Copied!",
+    "revoke": "Revoke",
+    "sharedWith": "Shared with",
+    "noShares": "Not shared yet.",
+    "share": "Share"
+  },
+  "blog": {
+    "title": "Blog",
+    "listDescription": "Latest articles, news and updates.",
+    "new": "New Post",
+    "edit": "Edit Post",
+    "delete": "Delete Post",
+    "confirmDelete": "Are you sure you want to delete this post?",
+    "postTitle": "Title",
+    "subtitle": "Subtitle (Teaser)",
+    "body": "Content",
+    "slug": "URL Slug",
+    "status": "Status",
+    "statusDraft": "Draft",
+    "statusPublished": "Published",
+    "statusArchived": "Archived",
+    "author": "Author",
+    "publishedAt": "Published",
+    "tags": "Tags",
+    "addTag": "Add tag",
+    "media": "Media",
+    "coverImage": "Cover Image",
+    "noSlug": "URL slug will be auto-generated",
+    "noPosts": "No blog posts yet.",
+    "readMore": "Read More",
+    "backToBlog": "Back to Blog",
+    "actions": "Actions"
   }
 }

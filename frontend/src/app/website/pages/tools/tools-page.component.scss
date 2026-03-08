@@ -1,0 +1,45 @@
+.tools-grid {
+  @apply grid gap-6;
+
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.tool-card {
+  @apply flex flex-col items-start gap-2 p-8 no-underline rounded-2xl transition-transform duration-200;
+
+  &:hover {
+    @apply -translate-y-1 shadow-glass-lg;
+  }
+}
+
+.tool-icon {
+  @apply text-jungle-500 mb-2;
+
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+}
+
+.tool-name {
+  @apply text-xl font-bold text-jungle-900 m-0;
+}
+
+:host-context(html.dark) .tool-name {
+  @apply text-slate-100;
+}
+
+.tool-desc {
+  @apply text-sm text-slate-500 m-0 leading-relaxed;
+}
+
+:host-context(html.dark) .tool-desc {
+  @apply text-slate-400;
+}
+
+.tool-cta {
+  @apply mt-auto pt-2 text-sm font-semibold text-jungle-600;
+}
+
+:host-context(html.dark) .tool-cta {
+  @apply text-jungle-400;
+}

@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   public constructor(private readonly translate: TranslateService) {
     const savedLang = localStorage.getItem('basscloud_lang') || 'en';
+
     this.translate.addLangs(['en', 'de', 'pl', 'fr']);
     this.translate.setDefaultLang('en');
     this.translate.use(savedLang);

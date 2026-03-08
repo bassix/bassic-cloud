@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { UserService } from './user.service';
 import { environment } from '@env/environment';
+import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
@@ -16,7 +16,7 @@ describe('UserService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => httpMock.verify());
+  afterEach(() => void httpMock.verify());
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -35,6 +35,7 @@ describe('UserService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/users?page=1&limit=20`);
+
     expect(req.request.method).toBe('GET');
     req.flush(mockResponse);
   });
@@ -47,6 +48,7 @@ describe('UserService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/users/1`);
+
     expect(req.request.method).toBe('GET');
     req.flush(mockUser);
   });
@@ -59,6 +61,7 @@ describe('UserService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/users`);
+
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(userData);
     req.flush({ success: true, data: { id: 2, ...userData, createdAt: '', updatedAt: '' } });
@@ -70,6 +73,7 @@ describe('UserService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/users/1`);
+
     expect(req.request.method).toBe('DELETE');
     req.flush({ success: true });
   });

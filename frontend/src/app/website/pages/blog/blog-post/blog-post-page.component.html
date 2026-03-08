@@ -1,0 +1,36 @@
+<div class="page-container">
+  <a mat-button class="back-link" routerLink="/blog">
+    <mat-icon>arrow_back</mat-icon> {{ 'blog.backToBlog' | translate }}
+  </a>
+
+  @if (loading) {
+    <div class="centered"><mat-spinner diameter="48"></mat-spinner></div>
+  } @else if (error || !post) {
+    <div class="centered error-msg">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ 'common.error' | translate }}</p>
+    </div>
+  } @else {
+    <article class="post-article glass-card">
+      <header class="post-header">
+        <div class="post-meta">
+          <span><mat-icon>person</mat-icon> {{ post.authorName }}</span>
+          @if (post.publishedAt) {
+            <span><mat-icon>calendar_today</mat-icon> {{ post.publishedAt | localeDate:'long' }}</span>
+          }
+        </div>
+        <h1 class="post-title">{{ post.title }}</h1>
+        @if (post.subtitle) {
+          <p class="post-subtitle">{{ post.subtitle }}</p>
+        }
+        @if (post.tags && post.tags.length) {
+          <mat-chip-set>
+            @for (tag of post.tags; track tag) { <mat-chip>{{ tag }}</mat-chip> }
+          </mat-chip-set>
+        }
+      </header>
+
+      <div class="post-body" [innerHTML]="post.bodyContent"></div>
+    </article>
+  }
+</div>

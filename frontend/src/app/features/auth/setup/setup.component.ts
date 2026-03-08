@@ -37,11 +37,11 @@ export class SetupComponent {
   public errorMessage = '';
 
   public constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private translate: TranslateService,
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly snackBar: MatSnackBar,
+    private readonly translate: TranslateService,
   ) {
     this.form = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -73,6 +73,7 @@ export class SetupComponent {
           );
           this.router.navigate(['/login']);
         }
+
         this.loading = false;
       },
       error: (err) => {

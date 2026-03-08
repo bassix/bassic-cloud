@@ -10,11 +10,11 @@ const USER_KEY = 'basscloud_user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private currentUser$ = new BehaviorSubject<User | null>(this.loadStoredUser());
+  private readonly currentUser$ = new BehaviorSubject<User | null>(this.loadStoredUser());
 
   public constructor(
-    private http: HttpClient,
-    private router: Router,
+    private readonly http: HttpClient,
+    private readonly router: Router,
   ) {}
 
   public get user$(): Observable<User | null> {
@@ -68,8 +68,8 @@ export class AuthService {
 
   public logout(): void {
     this.http.post(`${environment.apiUrl}/auth/logout`, {}).subscribe({
-      complete: () => this.clearSession(),
-      error: () => this.clearSession(),
+      complete: () => void this.clearSession(),
+      error: () => void this.clearSession(),
     });
   }
 
@@ -93,7 +93,9 @@ export class AuthService {
 
   private loadStoredUser(): User | null {
     const stored = localStorage.getItem(USER_KEY);
+
     if (!stored) return null;
+
     try {
       return JSON.parse(stored);
     } catch {

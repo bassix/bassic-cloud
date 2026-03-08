@@ -1,0 +1,159 @@
+/* ─── Site wrapper ───────────────────────────────────────────────────────────── */
+.site-wrapper {
+  @apply flex flex-col min-h-screen;
+}
+
+/* ─── Navbar ─────────────────────────────────────────────────────────────────── */
+.site-nav {
+  @apply fixed top-0 left-0 right-0 z-50 transition-all duration-300;
+
+  /* Liquid glass base */
+  @apply bg-white/60 backdrop-blur-2xl border-b border-white/30;
+
+  &.scrolled {
+    @apply bg-white/[0.08]5 shadow-glass;
+  }
+}
+
+:host-context(html.dark) .site-nav {
+  @apply bg-jungle-950/70 border-white/[0.08];
+
+  &.scrolled {
+    @apply bg-jungle-950/90;
+  }
+}
+
+.nav-inner {
+  @apply max-w-7xl mx-auto px-6 flex items-center gap-4 h-16;
+}
+
+/* ─── Brand ──────────────────────────────────────────────────────────────────── */
+.nav-brand {
+  @apply flex items-center gap-2 no-underline font-bold text-lg text-jungle-800 flex-shrink-0;
+
+  .brand-icon { @apply text-jungle-600; }
+  .brand-name { @apply font-bold; }
+}
+
+:host-context(html.dark) .nav-brand {
+  @apply text-slate-100;
+
+  .brand-icon { @apply text-jungle-400; }
+}
+
+/* ─── Navigation links ───────────────────────────────────────────────────────── */
+.nav-links {
+  @apply flex items-center gap-1 ml-6 flex-1;
+}
+
+.nav-link {
+  @apply text-sm font-medium text-jungle-700 rounded-lg !important;
+
+  .nav-link-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .dropdown-arrow {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &.active {
+    @apply text-jungle-700 !important;
+
+    background: rgb(61 143 107 / 10%) !important;
+  }
+
+  &.nav-link-tools {
+    @apply inline-flex items-center gap-1;
+  }
+
+  &.nav-link-admin {
+    color: #e05a2b !important;
+  }
+}
+
+:host-context(html.dark) .nav-link {
+  @apply text-slate-300 !important;
+
+  &.active {
+    @apply text-slate-100 !important;
+
+    background: rgb(255 255 255 / 8%) !important;
+  }
+
+  &.nav-link-admin {
+    color: #f07a50 !important;
+  }
+}
+
+/* ─── Right action buttons ───────────────────────────────────────────────────── */
+.nav-actions {
+  @apply flex items-center gap-1 ml-auto flex-shrink-0;
+}
+
+.nav-icon-btn {
+  @apply text-jungle-700 !important;
+}
+
+:host-context(html.dark) .nav-icon-btn {
+  @apply text-slate-300 !important;
+}
+
+.active-lang {
+  @apply font-bold text-jungle-600 !important;
+}
+
+.lang-flag {
+  @apply mr-2;
+}
+
+/* ─── Main content ───────────────────────────────────────────────────────────── */
+.site-main {
+  @apply flex-1 pt-16;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────────────── */
+.site-footer {
+  @apply py-8 mt-auto;
+
+  background: rgb(26 62 48 / 95%);
+  color: #94a3b8;
+}
+
+:host-context(html.dark) .site-footer {
+  background: rgb(2 6 23 / 95%);
+}
+
+.footer-inner {
+  @apply max-w-7xl mx-auto px-6 flex items-center flex-wrap gap-6;
+}
+
+.footer-brand {
+  @apply flex items-center gap-2 text-slate-100 font-semibold;
+
+  .footer-icon {
+    @apply text-jungle-400;
+
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.footer-links {
+  @apply flex items-center gap-6 flex-1;
+
+  a {
+    @apply text-slate-400 no-underline text-sm transition-colors;
+
+    &:hover { @apply text-slate-100; }
+  }
+}
+
+.footer-copy {
+  @apply text-slate-500 text-xs ml-auto;
+}

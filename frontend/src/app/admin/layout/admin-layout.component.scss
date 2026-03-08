@@ -1,0 +1,117 @@
+:host {
+  @apply block h-full;
+}
+
+.admin-container {
+  @apply flex h-screen overflow-hidden;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────────────────────── */
+.sidebar {
+  @apply flex flex-col flex-shrink-0 text-slate-200 transition-all duration-300 overflow-hidden;
+
+  width: 240px;
+  min-width: 240px;
+  background: linear-gradient(180deg, theme('colors.jungle.800') 0%, theme('colors.jungle.900') 100%);
+
+  &.collapsed {
+    width: 0;
+    min-width: 0;
+  }
+}
+
+:host-context(html.dark) .sidebar {
+  background: linear-gradient(180deg, #0a2a1e 0%, #061810 100%);
+}
+
+.sidebar-header {
+  @apply flex items-center gap-3 p-5 flex-shrink-0;
+
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+
+  mat-icon {
+    @apply text-jungle-400;
+  }
+}
+
+.sidebar-title {
+  @apply text-base font-bold whitespace-nowrap;
+}
+
+.sidebar-nav {
+  @apply flex-1 py-3 px-2 flex flex-col gap-1;
+
+  overflow: auto hidden;
+}
+
+.sidebar-link {
+  @apply flex items-center gap-3 px-3 py-2 rounded-xl no-underline text-slate-400
+         text-sm font-medium transition-colors whitespace-nowrap;
+
+  mat-icon {
+    @apply flex-shrink-0;
+
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    @apply bg-white/[0.08] text-slate-100;
+  }
+
+  &.active {
+    @apply bg-jungle-500/20 text-jungle-400 font-semibold;
+  }
+}
+
+.sidebar-footer {
+  @apply p-2 flex-shrink-0;
+
+  border-top: 1px solid rgb(255 255 255 / 10%);
+}
+
+/* ─── Admin main area ────────────────────────────────────────────────────────── */
+.admin-main {
+  @apply flex-1 flex flex-col overflow-hidden bg-slate-50;
+}
+
+:host-context(html.dark) .admin-main {
+  @apply bg-jungle-950;
+}
+
+.admin-top-bar {
+  @apply flex items-center gap-2 px-4 h-14 flex-shrink-0 bg-white/80 backdrop-blur-xl border-b border-black/[0.06];
+
+  button {
+    @apply text-slate-500;
+  }
+}
+
+:host-context(html.dark) .admin-top-bar {
+  @apply bg-jungle-900/80 border-white/[0.06];
+
+  button {
+    @apply text-slate-400;
+  }
+}
+
+.top-bar-spacer {
+  @apply flex-1;
+}
+
+.top-bar-actions {
+  @apply flex items-center gap-1;
+}
+
+.username {
+  @apply text-sm font-semibold text-jungle-700 pr-2;
+}
+
+:host-context(html.dark) .username {
+  @apply text-jungle-300;
+}
+
+.admin-content {
+  @apply flex-1 overflow-y-auto p-8;
+}

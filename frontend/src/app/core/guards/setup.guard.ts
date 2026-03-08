@@ -16,6 +16,7 @@ export const setupGuard: CanActivateFn = () => {
       if (!response.data.setupComplete) {
         return true;
       }
+
       return router.createUrlTree(['/login']);
     }),
     catchError(() => {

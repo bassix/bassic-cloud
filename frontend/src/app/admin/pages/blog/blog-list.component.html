@@ -1,0 +1,52 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <h2 class="text-2xl font-bold text-jungle-900 dark:text-white">{{ 'blog.title' | translate }}</h2>
+    <a mat-flat-button routerLink="/blog/new">
+      <mat-icon>add</mat-icon>
+      {{ 'blog.new' | translate }}
+    </a>
+  </div>
+  <mat-card class="glass-card overflow-hidden">
+    <table mat-table [dataSource]="posts" class="w-full">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>{{ 'blog.postTitle' | translate }}</th>
+        <td mat-cell *matCellDef="let p"><div class="font-medium">{{ p.title }}</div><div class="text-xs opacity-60">{{ p.subtitle }}</div></td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{ 'blog.status' | translate }}</th>
+        <td mat-cell *matCellDef="let p"><span [class]="getStatusColor(p.status)" class="font-medium capitalize">{{ p.status }}</span></td>
+      </ng-container>
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef>{{ 'blog.author' | translate }}</th>
+        <td mat-cell *matCellDef="let p">{{ p.authorName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="publishedAt">
+        <th mat-header-cell *matHeaderCellDef>{{ 'blog.publishedAt' | translate }}</th>
+        <td mat-cell *matCellDef="let p">{{ p.publishedAt | localeDate:'date' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="tags">
+        <th mat-header-cell *matHeaderCellDef>{{ 'blog.tags' | translate }}</th>
+        <td mat-cell *matCellDef="let p">
+          @for (tag of p.tags; track tag) {
+            <span class="inline-block bg-jungle-100 dark:bg-jungle-800 text-jungle-700 dark:text-jungle-200 text-xs px-2 py-0.5 rounded-full mr-1">{{ tag }}</span>
+          }
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let p">
+          <a mat-icon-button [routerLink]="['/blog', p.id, 'edit']"><mat-icon>edit</mat-icon></a>
+          <button mat-icon-button color="warn" (click)="deletePost(p)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    @if (posts.length === 0) {
+      <div class="flex flex-col items-center p-12 gap-3 text-jungle-400">
+        <mat-icon style="font-size:48px;width:48px;height:48px">article</mat-icon>
+        <p>{{ 'blog.noPosts' | translate }}</p>
+      </div>
+    }
+  </mat-card>
+</div>

@@ -1,0 +1,27 @@
+.legal-card {
+  @apply p-12 text-center max-w-2xl mx-auto;
+}
+
+.legal-icon {
+  @apply text-jungle-500 mb-4;
+
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+}
+
+h1 {
+  @apply text-3xl font-extrabold text-jungle-900 mb-8;
+}
+
+.legal-body {
+  @apply text-slate-500 text-base leading-relaxed text-left;
+}
+
+:host-context(html.dark) h1 {
+  @apply text-slate-100;
+}
+
+:host-context(html.dark) .legal-body {
+  @apply text-slate-400;
+}

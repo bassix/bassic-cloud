@@ -1,4 +1,4 @@
-.PHONY: help install backend-install frontend-install build test backend-test frontend-test migrate jwt-keys lint php-lint php-fix dev-backend dev-frontend submodule-init
+.PHONY: help install backend-install frontend-install build test backend-test frontend-test migrate jwt-keys lint lint-fix php-lint php-fix ts-lint ts-fix stylelint stylelint-fix pipeline dev-backend dev-frontend submodule-init
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -30,15 +30,23 @@ backend-test: ## Run PHPUnit tests
 frontend-test: ## Run Jest tests
 	cd frontend && yarn jest --passWithNoTests
 
-lint: php-lint ts-lint ## Run all linters
+lint: php-lint ts-lint stylelint ## Run all linters
 
-lint-fix: php-fix ts-fix ## Run all linters with auto-fix
+lint-fix: php-fix ts-fix stylelint-fix ## Run all linters with auto-fix
 
-ts-lint: ## Run ESLint and Stylelint
-	cd frontend && yarn lint
+ts-lint: ## Run ESLint on TypeScript and HTML files
+	cd frontend && yarn eslint 'src/**/*.ts' 'src/**/*.html'
 
-ts-fix: ## Fix ESLint and Stylelint issues automatically
-	cd frontend && yarn stylelint 'src/**/*.scss' --fix && yarn eslint 'src/**/*.ts' 'src/**/*.html' --fix
+ts-fix: ## Fix ESLint issues automatically
+	cd frontend && yarn eslint 'src/**/*.ts' 'src/**/*.html' --fix
+
+stylelint: ## Run Stylelint on SCSS files
+	cd frontend && yarn stylelint 'src/**/*.scss'
+
+stylelint-fix: ## Fix Stylelint issues automatically
+	cd frontend && yarn stylelint 'src/**/*.scss' --fix
+
+pipeline: php-lint ts-lint stylelint backend-test frontend-test ## Run full CI pipeline (all linters + all tests)
 
 php-lint: ## Check PHP code style (dry-run)
 	php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes --dry-run --diff

@@ -1,0 +1,123 @@
+.back-link {
+  @apply font-medium text-jungle-600 pl-0 mb-6 !important;
+}
+
+:host-context(html.dark) .back-link {
+  @apply text-jungle-400 !important;
+}
+
+.centered {
+  @apply flex flex-col items-center gap-4 py-16 text-slate-400;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.error-msg {
+  @apply text-red-500;
+}
+
+.post-article {
+  @apply glass-card p-10;
+}
+
+.post-header {
+  @apply mb-8 pb-6;
+
+  border-bottom: 1px solid rgb(0 0 0 / 8%);
+}
+
+:host-context(html.dark) .post-header {
+  border-color: rgb(255 255 255 / 8%);
+}
+
+.post-meta {
+  @apply flex gap-6 flex-wrap mb-4;
+
+  span {
+    @apply flex items-center gap-1 text-sm text-slate-400;
+  }
+
+  mat-icon {
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.post-title {
+  @apply font-extrabold text-jungle-900 m-0 leading-tight;
+
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+:host-context(html.dark) .post-title {
+  @apply text-slate-100;
+}
+
+.post-subtitle {
+  @apply text-lg text-slate-500 leading-relaxed m-0 mt-2;
+}
+
+:host-context(html.dark) .post-subtitle {
+  @apply text-slate-400;
+}
+
+.post-body {
+  @apply text-base leading-relaxed text-slate-700;
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bold text-jungle-900 my-4;
+  }
+
+  p {
+    @apply mb-4;
+  }
+
+  ul,
+  ol {
+    @apply pl-6 mb-4;
+  }
+
+  a {
+    @apply text-jungle-600 underline;
+  }
+
+  code {
+    @apply bg-black/5 px-1 rounded text-sm;
+  }
+
+  pre {
+    @apply bg-black/5 p-4 rounded-xl overflow-x-auto;
+  }
+
+  blockquote {
+    @apply border-l-4 border-jungle-400 pl-4 text-slate-500 my-4;
+  }
+}
+
+:host-context(html.dark) .post-body {
+  @apply text-slate-300;
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-slate-100;
+  }
+
+  code,
+  pre {
+    @apply bg-white/5;
+  }
+
+  blockquote {
+    @apply text-slate-400;
+  }
+}

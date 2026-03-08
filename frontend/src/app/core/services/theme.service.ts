@@ -33,6 +33,7 @@ export class ThemeService {
 
   public toggle(): void {
     const next: ThemeMode = this.mode$.value === 'light' ? 'dark' : 'light';
+
     this.setTheme(next);
   }
 

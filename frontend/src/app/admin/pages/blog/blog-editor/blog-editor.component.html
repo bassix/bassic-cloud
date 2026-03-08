@@ -1,0 +1,87 @@
+<div class="editor-page space-y-6">
+  <div class="flex items-center justify-between">
+    <h2 class="text-2xl font-bold text-jungle-900 dark:text-white">
+      {{ (postId ? 'blog.edit' : 'blog.new') | translate }}
+    </h2>
+    <a mat-button routerLink="/blog">
+      <mat-icon>arrow_back</mat-icon>
+      {{ 'blog.backToBlog' | translate }}
+    </a>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="save()" class="space-y-6">
+    <mat-card class="glass-card p-6 space-y-4">
+      <!-- Title -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ 'blog.postTitle' | translate }}</mat-label>
+        <input matInput formControlName="title" required>
+      </mat-form-field>
+
+      <!-- Subtitle -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ 'blog.subtitle' | translate }}</mat-label>
+        <input matInput formControlName="subtitle">
+      </mat-form-field>
+
+      <!-- Slug -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ 'blog.slug' | translate }}</mat-label>
+        <input matInput formControlName="slug" placeholder="{{ 'blog.noSlug' | translate }}">
+        <mat-icon matPrefix>link</mat-icon>
+      </mat-form-field>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Status -->
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'blog.status' | translate }}</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value="draft">{{ 'blog.statusDraft' | translate }}</mat-option>
+            <mat-option value="published">{{ 'blog.statusPublished' | translate }}</mat-option>
+            <mat-option value="archived">{{ 'blog.statusArchived' | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Published At -->
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'blog.publishedAt' | translate }}</mat-label>
+          <input matInput type="datetime-local" formControlName="publishedAt">
+        </mat-form-field>
+      </div>
+
+      <!-- Tags -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{ 'blog.tags' | translate }}</mat-label>
+        <mat-chip-grid #chipGrid>
+          @for (tag of tags; track tag) {
+            <mat-chip-row (removed)="removeTag(tag)">
+              {{ tag }}
+              <button matChipRemove><mat-icon>cancel</mat-icon></button>
+            </mat-chip-row>
+          }
+        </mat-chip-grid>
+        <input [matChipInputFor]="chipGrid"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               (matChipInputTokenEnd)="addTag($event)"
+               [placeholder]="'blog.addTag' | translate">
+      </mat-form-field>
+    </mat-card>
+
+    <!-- WYSIWYG Body -->
+    <mat-card class="glass-card p-6">
+      <h3 class="text-lg font-semibold mb-4 text-jungle-800 dark:text-jungle-100">{{ 'blog.body' | translate }}</h3>
+      <div class="ngx-editor-wrap">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+        <ngx-editor [editor]="editor" formControlName="bodyContent" [placeholder]="'blog.body' | translate"></ngx-editor>
+      </div>
+    </mat-card>
+
+    <!-- Actions -->
+    <div class="flex gap-3 justify-end">
+      <a mat-button routerLink="/blog">{{ 'common.cancel' | translate }}</a>
+      <button mat-flat-button type="submit" [disabled]="form.invalid || saving" class="save-btn">
+        <mat-icon>save</mat-icon>
+        {{ 'common.save' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

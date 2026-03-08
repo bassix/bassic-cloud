@@ -1,0 +1,101 @@
+<div class="admin-container">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="!sidebarOpen">
+    <div class="sidebar-header">
+      <mat-icon>admin_panel_settings</mat-icon>
+      <span class="sidebar-title">Admin</span>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Admin navigation">
+      <a class="sidebar-link" routerLink="/admin/dashboard" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        <span>{{ 'nav.dashboard' | translate }}</span>
+      </a>
+
+      @if (isAdmin) {
+        <a class="sidebar-link" routerLink="/admin/users" routerLinkActive="active">
+          <mat-icon>people</mat-icon>
+          <span>{{ 'nav.users' | translate }}</span>
+        </a>
+      }
+
+      <a class="sidebar-link" routerLink="/admin/groups" routerLinkActive="active">
+        <mat-icon>group</mat-icon>
+        <span>{{ 'nav.groups' | translate }}</span>
+      </a>
+
+      <a class="sidebar-link" routerLink="/admin/files" routerLinkActive="active">
+        <mat-icon>folder</mat-icon>
+        <span>{{ 'nav.files' | translate }}</span>
+      </a>
+
+      <a class="sidebar-link" routerLink="/admin/media" routerLinkActive="active">
+        <mat-icon>perm_media</mat-icon>
+        <span>{{ 'nav.media' | translate }}</span>
+      </a>
+
+      @if (isAdmin) {
+        <a class="sidebar-link" routerLink="/admin/blog" routerLinkActive="active">
+          <mat-icon>article</mat-icon>
+          <span>{{ 'nav.blog' | translate }}</span>
+        </a>
+
+        <a class="sidebar-link" routerLink="/admin/logs" routerLinkActive="active">
+          <mat-icon>analytics</mat-icon>
+          <span>{{ 'nav.logs' | translate }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="sidebar-footer">
+      <a class="sidebar-link" routerLink="/">
+        <mat-icon>public</mat-icon>
+        <span>{{ 'nav.backToSite' | translate }}</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main area -->
+  <div class="admin-main">
+    <!-- Top bar -->
+    <header class="admin-top-bar">
+      <button mat-icon-button (click)="sidebarOpen = !sidebarOpen"
+              [attr.aria-label]="'nav.toggleSidebar' | translate">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="top-bar-spacer"></div>
+
+      <div class="top-bar-actions">
+        @if (currentUser) {
+          <span class="username">{{ currentUser.username }}</span>
+        }
+
+        <button mat-icon-button (click)="themeService.toggle()"
+                [attr.aria-label]="(themeService.isDark ? 'nav.lightMode' : 'nav.darkMode') | translate">
+          <mat-icon>{{ themeService.isDark ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+
+        <button mat-icon-button [matMenuTriggerFor]="langMenu">
+          <mat-icon>language</mat-icon>
+        </button>
+        <mat-menu #langMenu="matMenu">
+          <button mat-menu-item (click)="switchLang('en')">🇬🇧 English</button>
+          <button mat-menu-item (click)="switchLang('de')">🇩🇪 Deutsch</button>
+          <button mat-menu-item (click)="switchLang('pl')">🇵🇱 Polski</button>
+          <button mat-menu-item (click)="switchLang('fr')">🇫🇷 Français</button>
+        </mat-menu>
+
+        <button mat-icon-button (click)="logout()"
+                [matTooltip]="'nav.logout' | translate">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page content -->
+    <main class="admin-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* === Base === */
 html,
 body {
@@ -25,6 +26,61 @@ html.dark {
 
   .glass-dark {
     @apply bg-jungle-950/60 backdrop-blur-xl border border-white/10 shadow-glass;
+  }
+
+  /* === Website page structure — shared across all public pages === */
+  .page-wrapper {
+    @apply min-h-screen pt-16 pb-16 bg-gradient-to-br from-jungle-50 via-white to-jungle-50;
+  }
+
+  html.dark .page-wrapper {
+    @apply from-jungle-950 via-jungle-950 to-jungle-950;
+  }
+
+  .content-container {
+    @apply max-w-5xl mx-auto px-6;
+  }
+
+  /* Consistent page hero section (icon + title + subtitle) */
+  .page-hero {
+    @apply text-center py-12 mb-10;
+  }
+
+  .page-hero-icon {
+    @apply text-jungle-500 mb-4 mx-auto block;
+
+    font-size: 56px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .page-hero-title {
+    @apply text-4xl font-extrabold text-jungle-900 mb-3;
+  }
+
+  html.dark .page-hero-title {
+    @apply text-slate-100;
+  }
+
+  .page-hero-desc {
+    @apply text-lg text-slate-500 max-w-xl mx-auto leading-relaxed;
+  }
+
+  html.dark .page-hero-desc {
+    @apply text-slate-400;
+  }
+
+  /* === Glass menu for MatMenu overlays === */
+  .glass-menu {
+    .mat-mdc-menu-panel {
+      @apply glass rounded-2xl border-white/40 shadow-glass-lg;
+
+      backdrop-filter: blur(20px) saturate(180%);
+    }
+
+    html.dark & .mat-mdc-menu-panel {
+      @apply glass-dark border-white/10;
+    }
   }
 
   html.dark .glass {
@@ -82,7 +138,7 @@ html.dark .sidebar {
 }
 
 .top-bar {
-  @apply bg-white/80 backdrop-blur-lg shadow-sm px-6 py-3 flex items-center justify-between border-b border-jungle-100;
+  @apply bg-white/[0.08]0 backdrop-blur-lg shadow-sm px-6 py-3 flex items-center justify-between border-b border-jungle-100;
 }
 
 html.dark .top-bar {
@@ -172,4 +228,45 @@ html.dark .upload-zone {
 
 .upload-zone.dragging {
   @apply border-jungle-500 bg-jungle-50;
+}
+
+/* === Dark Mode: Material Card overrides === */
+html.dark .mat-mdc-card {
+  @apply bg-jungle-900/80 border border-white/10;
+}
+
+html.dark .mat-mdc-card-title {
+  @apply text-white;
+}
+
+html.dark .mat-mdc-card-subtitle {
+  @apply text-jungle-300;
+}
+
+/* === Dark Mode: Logout button === */
+html.dark .logout-btn {
+  @apply text-jungle-100;
+}
+
+/* === Dark Mode: Table headers & cells === */
+html.dark .mat-mdc-header-cell {
+  @apply text-jungle-200;
+}
+
+html.dark .mat-mdc-cell {
+  @apply text-jungle-100 border-jungle-800;
+}
+
+html.dark .mat-mdc-row:hover {
+  @apply bg-jungle-800/50;
+}
+
+/* === Dark Mode: Form fields === */
+html.dark .mat-mdc-form-field-label {
+  @apply text-jungle-300;
+}
+
+/* === Dark Mode: Paginator === */
+html.dark .mat-mdc-paginator {
+  @apply bg-transparent text-jungle-200;
 }

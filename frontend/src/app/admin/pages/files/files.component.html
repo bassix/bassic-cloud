@@ -1,0 +1,234 @@
+<div class="files-page">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <h2 class="page-title">{{ 'files.title' | translate }}</h2>
+    <div class="view-toggle">
+      <button mat-icon-button [class.active]="viewMode === 'table'" (click)="viewMode = 'table'"
+        [matTooltip]="'files.tableView' | translate">
+        <mat-icon>view_list</mat-icon>
+      </button>
+      <button mat-icon-button [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'"
+        [matTooltip]="'files.gridView' | translate">
+        <mat-icon>grid_view</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Upload Zone -->
+  <div class="upload-zone"
+    [class.dragging]="isDragging"
+    (dragover)="onDragOver($event)"
+    (dragleave)="isDragging = false"
+    (drop)="onDrop($event)"
+    (click)="fileInput.click()">
+    <mat-icon class="upload-icon">cloud_upload</mat-icon>
+    <p class="upload-label">{{ 'files.dragDrop' | translate }}</p>
+    <input #fileInput type="file" multiple hidden (change)="onFilesSelected($event)">
+  </div>
+
+  <!-- Upload Queue -->
+  @if (uploads.length > 0) {
+    <div class="upload-queue">
+      <div class="upload-queue-header">
+        <span class="upload-queue-title">{{ 'files.uploadQueue' | translate }}</span>
+        @if (!hasActiveUploads) {
+          <button mat-button class="clear-btn" (click)="clearFinished()">
+            {{ 'files.clearDone' | translate }}
+          </button>
+        }
+      </div>
+
+      @for (task of uploads; track task.file.name) {
+        <div class="upload-item" [class.error]="task.progress.state === 'error'"
+          [class.done]="task.progress.state === 'done'">
+
+          <div class="upload-item-info">
+            <mat-icon class="upload-item-icon">
+              @if (task.progress.state === 'done') { check_circle }
+              @else if (task.progress.state === 'error') { error }
+              @else { upload_file }
+            </mat-icon>
+            <div class="upload-item-meta">
+              <span class="upload-item-name">{{ task.file.name }}</span>
+              <span class="upload-item-size">
+                @if (task.progress.state === 'uploading') {
+                  {{ task.progress.bytesLoaded | fileSize }} / {{ task.progress.bytesTotal | fileSize }}
+                  &nbsp;·&nbsp;
+                  {{ formatSpeed(task.progress.speedBytesPerSecond) }}
+                } @else if (task.progress.state === 'done') {
+                  {{ task.file.size | fileSize }} · {{ 'files.uploadDone' | translate }}
+                } @else if (task.progress.state === 'error') {
+                  {{ task.progress.error }}
+                } @else {
+                  {{ task.file.size | fileSize }} · {{ 'files.uploadPending' | translate }}
+                }
+              </span>
+            </div>
+            <span class="upload-item-percent">
+              @if (task.progress.state === 'uploading') {
+                {{ task.progress.percent }}%
+              }
+            </span>
+            <button mat-icon-button class="dismiss-btn"
+              (click)="dismissUpload(task); $event.stopPropagation()"
+              [matTooltip]="'common.close' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+          @if (task.progress.state === 'uploading' || task.progress.state === 'pending') {
+            <mat-progress-bar mode="determinate" [value]="task.progress.percent"></mat-progress-bar>
+          } @else if (task.progress.state === 'error') {
+            <div class="upload-error-bar"></div>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  <!-- TABLE VIEW -->
+  @if (viewMode === 'table') {
+    <mat-card class="files-card">
+      <table mat-table [dataSource]="files" class="w-full">
+        <ng-container matColumnDef="icon">
+          <th mat-header-cell *matHeaderCellDef class="w-12"></th>
+          <td mat-cell *matCellDef="let file">
+            <mat-icon [class]="getIconColor(file)">{{ getFileIcon(file) }}</mat-icon>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ 'files.name' | translate }}</th>
+          <td mat-cell *matCellDef="let file">
+            @if (editingFileId !== file.id) {
+              <span>{{ file.originalName }}</span>
+            } @else {
+              <mat-form-field appearance="outline" class="w-full rename-field">
+                <input matInput [(ngModel)]="editingName"
+                  (keydown.enter)="saveRename(file)"
+                  (keydown.escape)="cancelRename()">
+              </mat-form-field>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>{{ 'files.type' | translate }}</th>
+          <td mat-cell *matCellDef="let file" class="text-xs text-gray-500">{{ file.mimeType }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="size">
+          <th mat-header-cell *matHeaderCellDef>{{ 'files.size' | translate }}</th>
+          <td mat-cell *matCellDef="let file">{{ file.size | fileSize }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="uploaded">
+          <th mat-header-cell *matHeaderCellDef>{{ 'files.uploaded' | translate }}</th>
+          <td mat-cell *matCellDef="let file">{{ file.createdAt | localeDate }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>{{ 'files.actions' | translate }}</th>
+          <td mat-cell *matCellDef="let file">
+            <button mat-icon-button (click)="startRename(file)" [matTooltip]="'files.rename' | translate">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <a mat-icon-button [href]="fileService.getDownloadUrl(file.id)" target="_blank"
+              [matTooltip]="'files.download' | translate">
+              <mat-icon>download</mat-icon>
+            </a>
+            <button mat-icon-button color="warn" (click)="deleteFile(file)"
+              [matTooltip]="'files.delete' | translate">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      @if (files.length === 0) {
+        <div class="empty-state">
+          <mat-icon>folder_open</mat-icon>
+          <p>{{ 'files.noFiles' | translate }}</p>
+        </div>
+      }
+
+      <mat-paginator
+        [length]="totalFiles"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[20, 50, 100]"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+    </mat-card>
+  }
+
+  <!-- GRID / THUMBNAIL VIEW -->
+  @if (viewMode === 'grid') {
+    <div class="file-grid">
+      @for (file of files; track file.id) {
+        <div class="file-tile">
+          <!-- Thumbnail or icon -->
+          <div class="file-tile-thumb">
+            @if (file.isImage && thumbUrls.get(file.id)) {
+              <img [src]="getThumbnailUrl(file)" [alt]="file.originalName" loading="lazy">
+            } @else if (file.isVideo && thumbUrls.get(file.id)) {
+              <video [src]="getThumbnailUrl(file)" preload="metadata" muted></video>
+            } @else if ((file.isImage || file.isVideo) && !thumbUrls.get(file.id)) {
+              <div class="file-tile-loading">
+                <mat-icon class="spin">hourglass_empty</mat-icon>
+              </div>
+            } @else {
+              <mat-icon class="file-tile-icon" [class]="getIconColor(file)">
+                {{ getFileIcon(file) }}
+              </mat-icon>
+            }
+          </div>
+          <!-- Overlay actions -->
+          <div class="file-tile-overlay">
+            <button mat-icon-button (click)="startRename(file)" [matTooltip]="'files.rename' | translate">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <a mat-icon-button [href]="fileService.getDownloadUrl(file.id)" target="_blank"
+              [matTooltip]="'files.download' | translate">
+              <mat-icon>download</mat-icon>
+            </a>
+            <button mat-icon-button color="warn" (click)="deleteFile(file)"
+              [matTooltip]="'files.delete' | translate">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <!-- File name -->
+          <div class="file-tile-name">
+            @if (editingFileId !== file.id) {
+              <span>{{ file.originalName }}</span>
+            } @else {
+              <mat-form-field appearance="outline" class="w-full">
+                <input matInput [(ngModel)]="editingName"
+                  (keydown.enter)="saveRename(file)"
+                  (keydown.escape)="cancelRename()">
+              </mat-form-field>
+            }
+          </div>
+          <div class="file-tile-meta">{{ file.size | fileSize }}</div>
+        </div>
+      }
+    </div>
+
+    @if (files.length === 0) {
+      <div class="empty-state">
+        <mat-icon>folder_open</mat-icon>
+        <p>{{ 'files.noFiles' | translate }}</p>
+      </div>
+    }
+
+    <mat-paginator
+      [length]="totalFiles"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[20, 50, 100]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  }
+</div>

@@ -1,0 +1,15 @@
+.pw-gen-container {
+  @apply max-w-2xl;
+}
+
+.pw-gen-back {
+  @apply mb-4;
+
+  a {
+    @apply text-jungle-600 font-medium pl-0;
+  }
+}
+
+:host-context(html.dark) .pw-gen-back a {
+  @apply text-jungle-400;
+}

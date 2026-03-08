@@ -1,0 +1,220 @@
+/* ─── Home page overrides the default page-wrapper for a full-viewport hero ─── */
+.home-page {
+  @apply relative overflow-hidden;
+
+  min-height: calc(100vh - 60px);
+  background: linear-gradient(135deg, theme('colors.jungle.50') 0%, #fff 50%, theme('colors.jungle.50') 100%);
+}
+
+:host-context(html.dark) .home-page {
+  background: linear-gradient(135deg, theme('colors.jungle.950') 0%, #0a1628 50%, theme('colors.jungle.950') 100%);
+}
+
+/* ─── Animated background blobs ─────────────────────────────────────────────── */
+.blob {
+  @apply absolute rounded-full pointer-events-none;
+
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: float 12s ease-in-out infinite;
+}
+
+.blob-1 {
+  @apply w-96 h-96;
+
+  background: radial-gradient(circle, theme('colors.jungle.300'), theme('colors.jungle.500'));
+  top: -8rem;
+  left: -4rem;
+  animation-delay: 0s;
+}
+
+.blob-2 {
+  @apply w-80 h-80;
+
+  background: radial-gradient(circle, theme('colors.jungle.200'), theme('colors.jungle.400'));
+  bottom: -6rem;
+  right: -4rem;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  @apply w-72 h-72;
+
+  background: radial-gradient(circle, theme('colors.jungle.100'), theme('colors.jungle.300'));
+  top: 40%;
+  left: 55%;
+  animation-delay: -9s;
+}
+
+:host-context(html.dark) .blob {
+  opacity: 0.15;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-24px) scale(1.04); }
+}
+
+/* ─── Hero section ───────────────────────────────────────────────────────────── */
+.hero-section {
+  @apply flex items-center justify-center px-6;
+
+  min-height: calc(100vh - 60px);
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.hero-inner {
+  @apply w-full relative z-10;
+
+  max-width: 680px;
+}
+
+.hero-glass {
+  @apply glass-card text-center;
+
+  padding: 3rem 2.5rem;
+  box-shadow:
+    0 8px 32px rgb(0 0 0 / 8%),
+    0 2px 8px rgb(0 0 0 / 4%),
+    inset 0 1px 0 rgb(255 255 255 / 70%);
+}
+
+:host-context(html.dark) .hero-glass {
+  box-shadow:
+    0 8px 32px rgb(0 0 0 / 30%),
+    inset 0 1px 0 rgb(255 255 255 / 5%);
+}
+
+/* ─── Logo ring ──────────────────────────────────────────────────────────────── */
+.hero-logo {
+  @apply flex justify-center mb-6;
+}
+
+.logo-ring {
+  @apply flex items-center justify-center rounded-full;
+
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, theme('colors.jungle.400'), theme('colors.jungle.600'));
+  box-shadow: 0 4px 20px rgb(16 185 129 / 40%);
+}
+
+.logo-icon {
+  @apply text-white;
+
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+/* ─── Hero text ──────────────────────────────────────────────────────────────── */
+.hero-title {
+  @apply font-extrabold mb-2 leading-tight;
+
+  font-size: clamp(2rem, 5vw, 3rem);
+  background: linear-gradient(135deg, theme('colors.jungle.800'), theme('colors.jungle.500'));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:host-context(html.dark) .hero-title {
+  background: linear-gradient(135deg, theme('colors.jungle.300'), theme('colors.jungle.500'));
+  background-clip: text;
+}
+
+.hero-tagline {
+  @apply text-jungle-600 font-medium mb-6 text-lg;
+}
+
+:host-context(html.dark) .hero-tagline {
+  @apply text-jungle-400;
+}
+
+.hero-divider {
+  @apply mx-auto mb-6 rounded-full;
+
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, theme('colors.jungle.500'), theme('colors.jungle.400'));
+}
+
+.hero-greeting {
+  @apply text-xl font-bold text-jungle-900 mb-3;
+}
+
+:host-context(html.dark) .hero-greeting {
+  @apply text-slate-200;
+}
+
+.hero-description {
+  @apply text-slate-600 text-base leading-relaxed mb-8;
+}
+
+:host-context(html.dark) .hero-description {
+  @apply text-slate-400;
+}
+
+/* ─── Feature chips ──────────────────────────────────────────────────────────── */
+.feature-grid {
+  @apply grid gap-3 mb-8;
+
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.feature-chip {
+  @apply flex items-center gap-2 rounded-xl text-sm font-medium text-jungle-800;
+
+  padding: 0.625rem 1rem;
+  background: rgb(16 185 129 / 8%);
+  border: 1px solid rgb(16 185 129 / 20%);
+
+  mat-icon {
+    @apply text-jungle-500 flex-shrink-0;
+
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+:host-context(html.dark) .feature-chip {
+  @apply text-jungle-300;
+
+  background: rgb(110 231 183 / 8%);
+  border-color: rgb(110 231 183 / 15%);
+
+  mat-icon {
+    @apply text-jungle-400;
+  }
+}
+
+/* ─── CTA row ────────────────────────────────────────────────────────────────── */
+.cta-row {
+  @apply flex gap-3 justify-center flex-wrap;
+}
+
+.cta-primary {
+  @apply text-white font-semibold rounded-xl px-6 !important;
+
+  background: linear-gradient(135deg, theme('colors.jungle.600'), theme('colors.jungle.700')) !important;
+}
+
+.cta-secondary {
+  @apply font-semibold rounded-xl px-6 text-jungle-600 !important;
+
+  border-color: theme('colors.jungle.500') !important;
+}
+
+:host-context(html.dark) .cta-secondary {
+  @apply text-jungle-400 !important;
+
+  border-color: theme('colors.jungle.400') !important;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────────── */
+@media (width <= 480px) {
+  .hero-glass { padding: 2rem 1.25rem; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .cta-row { flex-direction: column; }
+}

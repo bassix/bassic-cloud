@@ -1,0 +1,69 @@
+.posts-grid {
+  @apply grid gap-6;
+
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.centered {
+  @apply flex flex-col items-center gap-4 py-16 text-slate-400;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.error-msg {
+  @apply text-red-500;
+}
+
+.post-card {
+  @apply glass-card flex flex-col gap-3 p-7 transition-transform duration-200;
+
+  &:hover {
+    @apply -translate-y-1 shadow-glass-lg;
+  }
+}
+
+.post-meta {
+  @apply flex gap-4 flex-wrap;
+
+  span {
+    @apply flex items-center gap-1 text-xs text-slate-400;
+  }
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.post-title {
+  @apply text-xl font-bold text-jungle-900 m-0 leading-snug;
+}
+
+:host-context(html.dark) .post-title {
+  @apply text-slate-100;
+}
+
+.post-subtitle {
+  @apply text-slate-500 text-sm leading-relaxed m-0;
+}
+
+:host-context(html.dark) .post-subtitle {
+  @apply text-slate-400;
+}
+
+.post-tags {
+  @apply mt-1;
+}
+
+.read-more {
+  @apply mt-auto font-semibold text-jungle-600 pl-0 !important;
+}
+
+:host-context(html.dark) .read-more {
+  @apply text-jungle-400 !important;
+}

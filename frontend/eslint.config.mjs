@@ -417,33 +417,51 @@ export default [
       'max-len': 'off',
     },
   })),
-  // Pragmatic override: the original config is very strict (typedef, strict unsafe checks, stylistic padding rules)
-  // and the current codebase was written before applying all these rules. Disable a targeted subset here so
-  // `yarn lint` can run successfully. We should re-enable and fix violations incrementally later.
+  // ── Project-specific overrides (adapted from dce-ui config) ──────────────
+  // Task 1.1: member ordering is free — existing codebase uses its own style.
+  // Task 1.2: padding-line-between-statements is inherited from above (kept active).
   {
-    files: ['**/*.ts', '**/*.html'],
+    files: ['**/*.ts'],
     rules: {
-      '@typescript-eslint/typedef': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/no-unsafe-return': 'off',
-      '@typescript-eslint/no-unsafe-argument': 'off',
-      '@typescript-eslint/no-confusing-void-expression': 'off',
-      '@typescript-eslint/prefer-readonly': 'off',
-      '@typescript-eslint/no-floating-promises': 'off',
-      '@typescript-eslint/unbound-method': 'off',
-      '@stylistic/padding-line-between-statements': 'off',
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/explicit-member-accessibility': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-extra-non-null-assertion': 'off',
-      'no-console': 'off',
-      'import/order': 'off',
-      '@nx/enforce-module-boundaries': 'off',
-      '@stylistic/no-extra-semi': 'off',
-      '@typescript-eslint/prefer-nullish-coalescing': 'off',
-      'max-len': 'off',
-      '@typescript-eslint/consistent-type-assertions': 'off',
+      // 1.1 — ordering is deliberately free in this project
+      '@typescript-eslint/member-ordering': 'off',
+      // typedef: only enforce on explicit function/method parameters.
+      // memberVariableDeclaration would require `public x: number = 0` everywhere —
+      // too invasive for the existing codebase.
+      '@typescript-eslint/typedef': [
+        'error',
+        {
+          arrayDestructuring: false,
+          arrowParameter: false,
+          memberVariableDeclaration: false,
+          objectDestructuring: false,
+          parameter: true,
+          propertyDeclaration: true,
+          variableDeclaration: false,
+          variableDeclarationIgnoreFunction: true,
+        },
+      ],
+      // unsafe-* rules require perfect typing across all third-party libs → warn only
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'warn',
+      '@typescript-eslint/no-unsafe-return': 'warn',
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+      '@typescript-eslint/no-unsafe-call': 'warn',
+      // void operator used in .catch() and router.navigate() → warn
+      '@typescript-eslint/no-confusing-void-expression': ['warn', { ignoreVoidOperator: true }],
+      '@typescript-eslint/no-floating-promises': 'warn',
+      '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
+      // prefer-readonly conflicts with many Angular service patterns → warn
+      '@typescript-eslint/prefer-readonly': 'warn',
+      // consistent-type-definitions: allow both interface and type in this project
+      '@typescript-eslint/consistent-type-definitions': 'off',
+      // prefer-nullish-coalescing: existing code uses || heavily → warn only
+      '@typescript-eslint/prefer-nullish-coalescing': ['warn', {
+        ignoreConditionalTests: true,
+        ignoreMixedLogicalExpressions: true,
+      }],
+      // no-base-to-string: existing template literals with unknown values → warn
+      '@typescript-eslint/no-base-to-string': 'warn',
     },
   },
 ];

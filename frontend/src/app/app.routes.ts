@@ -1,69 +1,25 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
 import { setupGuard } from './core/guards/setup.guard';
+import { websiteRoutes } from './website/website.routes';
+import { adminRoutes } from './admin/admin.routes';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'welcome',
-    pathMatch: 'full',
-  },
-  {
-    path: 'welcome',
-    loadComponent: () =>
-      import('./features/auth/welcome/welcome.component').then(m => m.WelcomeComponent),
-  },
+  // ── Setup (first-run wizard, no layout) ─────────────────────────────────
   {
     path: 'setup',
-    loadComponent: () =>
-      import('./features/auth/setup/setup.component').then(m => m.SetupComponent),
+    loadComponent: () => import('./features/auth/setup/setup.component').then(m => m.SetupComponent),
     canActivate: [setupGuard],
   },
+
+  // ── Admin area (/admin/**) ───────────────────────────────────────────────
   {
-    path: 'login',
-    loadComponent: () =>
-      import('./features/auth/login/login.component').then(m => m.LoginComponent),
+    path: 'admin',
+    children: adminRoutes,
   },
-  {
-    path: '',
-    loadComponent: () =>
-      import('./features/dashboard/layout/layout.component').then(m => m.LayoutComponent),
-    canActivate: [authGuard],
-    children: [
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import('./features/dashboard/home/home.component').then(m => m.HomeComponent),
-      },
-      {
-        path: 'users',
-        loadComponent: () =>
-          import('./features/users/user-list/user-list.component').then(m => m.UserListComponent),
-      },
-      {
-        path: 'files',
-        loadComponent: () =>
-          import('./features/files/file-list/file-list.component').then(m => m.FileListComponent),
-      },
-      {
-        path: 'gallery',
-        loadComponent: () =>
-          import('./features/gallery/gallery.component').then(m => m.GalleryComponent),
-      },
-      {
-        path: 'player',
-        loadComponent: () =>
-          import('./features/player/player.component').then(m => m.PlayerComponent),
-      },
-      {
-        path: 'logs',
-        loadComponent: () =>
-          import('./features/logs/log-list/log-list.component').then(m => m.LogListComponent),
-      },
-    ],
-  },
-  {
-    path: '**',
-    redirectTo: 'dashboard',
-  },
+
+  // ── Public website (/, /blog, /tools, /login, /account, /*/legal …) ─────
+  ...websiteRoutes,
+
+  // ── Fallback ─────────────────────────────────────────────────────────────
+  { path: '**', redirectTo: '' },
 ];

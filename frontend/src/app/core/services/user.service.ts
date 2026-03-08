@@ -8,12 +8,13 @@ import { ApiResponse, PaginatedResponse, User } from '../models/api.models';
 export class UserService {
   private readonly baseUrl = `${environment.apiUrl}/users`;
 
-  public constructor(private http: HttpClient) {}
+  public constructor(private readonly http: HttpClient) {}
 
-  public getUsers(page = 1, limit = 20): Observable<PaginatedResponse<User>> {
+  public getUsers(page: number = 1, limit: number = 20): Observable<PaginatedResponse<User>> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());
+
     return this.http.get<PaginatedResponse<User>>(this.baseUrl, { params });
   }
 

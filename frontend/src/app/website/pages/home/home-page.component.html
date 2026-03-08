@@ -1,0 +1,59 @@
+<!-- Animated background blobs -->
+<div class="home-page">
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-inner">
+      <div class="hero-glass">
+        <div class="hero-logo">
+          <div class="logo-ring">
+            <mat-icon class="logo-icon">cloud</mat-icon>
+          </div>
+        </div>
+
+        <h1 class="hero-title">BassCloud</h1>
+        <p class="hero-tagline">{{ 'home.tagline' | translate }}</p>
+
+        <div class="hero-divider" aria-hidden="true"></div>
+
+        <h2 class="hero-greeting">{{ 'home.greetingTitle' | translate }}</h2>
+        <p class="hero-description">{{ 'home.greetingText' | translate }}</p>
+
+        <!-- Feature chips -->
+        <div class="feature-grid">
+          <div class="feature-chip">
+            <mat-icon>folder_open</mat-icon>
+            <span>{{ 'home.featureFiles' | translate }}</span>
+          </div>
+          <div class="feature-chip">
+            <mat-icon>photo_library</mat-icon>
+            <span>{{ 'home.featureGallery' | translate }}</span>
+          </div>
+          <div class="feature-chip">
+            <mat-icon>play_circle</mat-icon>
+            <span>{{ 'home.featureMedia' | translate }}</span>
+          </div>
+          <div class="feature-chip">
+            <mat-icon>article</mat-icon>
+            <span>{{ 'home.featureBlog' | translate }}</span>
+          </div>
+        </div>
+
+        <!-- CTA buttons -->
+        <div class="cta-row">
+          <a mat-flat-button class="cta-primary" routerLink="/blog">
+            <mat-icon>article</mat-icon>
+            {{ 'home.exploreBlog' | translate }}
+          </a>
+          <a mat-stroked-button class="cta-secondary" routerLink="/login">
+            <mat-icon>login</mat-icon>
+            {{ 'home.signIn' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

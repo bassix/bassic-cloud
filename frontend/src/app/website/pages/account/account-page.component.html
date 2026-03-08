@@ -1,0 +1,47 @@
+<div class="page-container">
+  <div class="account-card glass-card">
+    <div class="account-header">
+      <mat-icon class="account-icon">manage_accounts</mat-icon>
+      <div>
+        <h1>{{ 'account.title' | translate }}</h1>
+        @if (currentUser) {
+          <p class="account-username">{{ currentUser.username }}</p>
+        }
+      </div>
+    </div>
+
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSave()" class="account-form">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'account.email' | translate }}</mat-label>
+        <input matInput formControlName="email" type="email" autocomplete="email">
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'account.newPassword' | translate }}</mat-label>
+        <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" autocomplete="new-password">
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-hint>{{ 'account.passwordHint' | translate }}</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'account.confirmPassword' | translate }}</mat-label>
+        <input matInput formControlName="confirmPassword" [type]="hidePassword ? 'password' : 'text'" autocomplete="new-password">
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-flat-button class="save-btn" type="submit" [disabled]="form.invalid || loading">
+          <mat-icon>save</mat-icon>
+          {{ 'common.save' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { FileService } from './file.service';
 import { environment } from '@env/environment';
+import { FileService } from './file.service';
 
 describe('FileService', () => {
   let service: FileService;
@@ -16,7 +16,7 @@ describe('FileService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => httpMock.verify());
+  afterEach(() => void httpMock.verify());
 
   it('should fetch files with pagination', () => {
     const mockResponse = {
@@ -48,6 +48,7 @@ describe('FileService', () => {
     const req = httpMock.expectOne(
       `${environment.apiUrl}/files?page=1&limit=50`,
     );
+
     expect(req.request.method).toBe('GET');
     req.flush(mockResponse);
   });
@@ -61,6 +62,7 @@ describe('FileService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/files`);
+
     expect(req.request.method).toBe('POST');
     expect(req.request.body instanceof FormData).toBe(true);
     req.flush({ success: true, data: { id: 2, originalName: 'test.txt' } });
@@ -80,6 +82,7 @@ describe('FileService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/files/5`);
+
     expect(req.request.method).toBe('DELETE');
     req.flush({ success: true, data: { message: 'File deleted.' } });
   });
@@ -90,6 +93,7 @@ describe('FileService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/files/3`);
+
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual({ originalName: 'new-name.pdf' });
     req.flush({ success: true, data: { id: 3, originalName: 'new-name.pdf' } });

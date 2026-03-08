@@ -18,47 +18,55 @@ export interface UploadProgress {
 export class FileService {
   private readonly baseUrl = `${environment.apiUrl}/files`;
 
-  public constructor(private http: HttpClient) {}
+  public constructor(private readonly http: HttpClient) {}
 
-  public getFiles(page = 1, limit = 50, mime?: string): Observable<PaginatedResponse<FileItem>> {
+  public getFiles(page: number = 1, limit: number = 50, mime?: string): Observable<PaginatedResponse<FileItem>> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());
+
     if (mime) {
       params = params.set('mime', mime);
     }
+
     return this.http.get<PaginatedResponse<FileItem>>(this.baseUrl, { params });
   }
 
-  public getImages(page = 1, limit = 50): Observable<PaginatedResponse<FileItem>> {
+  public getImages(page: number = 1, limit: number = 50): Observable<PaginatedResponse<FileItem>> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());
+
     return this.http.get<PaginatedResponse<FileItem>>(`${this.baseUrl}/images`, { params });
   }
 
-  public getVideos(page = 1, limit = 50): Observable<PaginatedResponse<FileItem>> {
+  public getVideos(page: number = 1, limit: number = 50): Observable<PaginatedResponse<FileItem>> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());
+
     return this.http.get<PaginatedResponse<FileItem>>(`${this.baseUrl}/videos`, { params });
   }
 
-  public getAudio(page = 1, limit = 50): Observable<PaginatedResponse<FileItem>> {
+  public getAudio(page: number = 1, limit: number = 50): Observable<PaginatedResponse<FileItem>> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());
+
     return this.http.get<PaginatedResponse<FileItem>>(`${this.baseUrl}/audio`, { params });
   }
 
   public uploadFile(file: File): Observable<ApiResponse<FileItem>> {
     const formData = new FormData();
+
     formData.append('file', file, file.name);
+
     return this.http.post<ApiResponse<FileItem>>(this.baseUrl, formData);
   }
 
   public uploadWithProgress(file: File): Observable<UploadProgress> {
     const formData = new FormData();
+
     formData.append('file', file, file.name);
 
     const req = new HttpRequest('POST', this.baseUrl, formData, { reportProgress: true });
@@ -73,6 +81,7 @@ export class FileService {
 
           if (event.type === HttpEventType.UploadProgress && event.total) {
             const percent = Math.round((event.loaded / event.total) * 100);
+
             observer.next({
               state: 'uploading',
               percent,
@@ -82,6 +91,7 @@ export class FileService {
             });
           } else if (event.type === HttpEventType.Response) {
             const body = event.body;
+
             observer.next({
               state: 'done',
               percent: 100,
@@ -99,12 +109,13 @@ export class FileService {
               ? String((err as {error: {detail?: string; message?: string}}).error?.detail
                 ?? (err as {error: {message?: string}}).error?.message ?? 'Upload failed')
               : 'Upload failed');
+
           observer.next({ state: 'error', percent: 0, bytesLoaded: 0, bytesTotal: file.size, speedBytesPerSecond: 0, error: msg });
           observer.complete();
         },
       });
 
-      return () => sub.unsubscribe();
+      return () => void sub.unsubscribe();
     });
   }
 
@@ -128,7 +139,7 @@ export class FileService {
    * Fetch a short-lived signed thumbnail URL from the backend.
    * The URL points to /thumb/{w}x{h}/{token} which is publicly accessible.
    */
-  public getThumbUrl(id: number, w = 360, h = 360): Observable<ApiResponse<{ url: string; w: number; h: number }>> {
+  public getThumbUrl(id: number, w: number = 360, h: number = 360): Observable<ApiResponse<{ url: string; w: number; h: number }>> {
     return this.http.get<ApiResponse<{ url: string; w: number; h: number }>>(
       `${this.baseUrl}/${id}/thumb-url`,
       { params: new HttpParams().set('w', w.toString()).set('h', h.toString()) },

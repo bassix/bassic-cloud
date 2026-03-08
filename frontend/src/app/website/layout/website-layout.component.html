@@ -1,0 +1,138 @@
+<div class="site-wrapper">
+
+  <!-- ═══ HEADER / NAVBAR ═══ -->
+  <header class="site-nav" [class.scrolled]="scrolled" role="banner">
+    <div class="nav-inner">
+
+      <!-- Brand -->
+      <a [routerLink]="['/', currentLang]" class="nav-brand" aria-label="BassCloud Home">
+        <mat-icon class="brand-icon">cloud</mat-icon>
+        <span class="brand-name">BassCloud</span>
+      </a>
+
+      <!-- Primary navigation -->
+      <nav class="nav-links" aria-label="Hauptnavigation">
+        <a mat-button class="nav-link"
+           [routerLink]="['/', currentLang]"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }">
+          {{ 'nav.home' | translate }}
+        </a>
+
+        <a mat-button class="nav-link"
+           [routerLink]="['/', currentLang, 'blog']"
+           routerLinkActive="active">
+          {{ 'nav.blog' | translate }}
+        </a>
+
+        <!-- Tools with dropdown -->
+        <button mat-button class="nav-link nav-link-tools" [matMenuTriggerFor]="toolsMenu">
+          <span>{{ 'nav.tools' | translate }}</span>
+          <mat-icon class="dropdown-arrow">expand_more</mat-icon>
+        </button>
+        <mat-menu #toolsMenu="matMenu" panelClass="glass-menu">
+          <a mat-menu-item [routerLink]="['/', currentLang, 'tools']">
+            <mat-icon>build</mat-icon>
+            <span>{{ 'tools.overview' | translate }}</span>
+          </a>
+          <a mat-menu-item [routerLink]="['/', currentLang, 'tools', 'password-generator']">
+            <mat-icon>vpn_key</mat-icon>
+            <span>{{ 'tools.passwordGenerator' | translate }}</span>
+          </a>
+        </mat-menu>
+
+        <!-- Admin link — only visible for admin users -->
+        @if (isAdmin) {
+          <a mat-button class="nav-link nav-link-admin" routerLink="/admin" routerLinkActive="active">
+            <mat-icon class="nav-link-icon">admin_panel_settings</mat-icon>
+            {{ 'nav.admin' | translate }}
+          </a>
+        }
+      </nav>
+
+      <!-- Secondary actions (right side) -->
+      <div class="nav-actions" role="toolbar" aria-label="Site actions">
+
+        <!-- Dark / Light mode toggle -->
+        <button mat-icon-button
+                class="nav-icon-btn"
+                (click)="themeService.toggle()"
+                [matTooltip]="(themeService.isDark ? 'nav.lightMode' : 'nav.darkMode') | translate">
+          <mat-icon>{{ themeService.isDark ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+
+        <!-- Language switcher -->
+        <button mat-icon-button
+                class="nav-icon-btn"
+                [matMenuTriggerFor]="langMenu"
+                [matTooltip]="'nav.language' | translate"
+                aria-label="Switch language">
+          <mat-icon>language</mat-icon>
+        </button>
+        <mat-menu #langMenu="matMenu" panelClass="glass-menu">
+          <button mat-menu-item (click)="switchLang('en')" [class.active-lang]="currentLang === 'en'">
+            <span class="lang-flag">🇬🇧</span> English
+          </button>
+          <button mat-menu-item (click)="switchLang('de')" [class.active-lang]="currentLang === 'de'">
+            <span class="lang-flag">🇩🇪</span> Deutsch
+          </button>
+          <button mat-menu-item (click)="switchLang('pl')" [class.active-lang]="currentLang === 'pl'">
+            <span class="lang-flag">🇵🇱</span> Polski
+          </button>
+          <button mat-menu-item (click)="switchLang('fr')" [class.active-lang]="currentLang === 'fr'">
+            <span class="lang-flag">🇫🇷</span> Français
+          </button>
+        </mat-menu>
+
+        <!-- Login / User menu -->
+        @if (isLoggedIn) {
+          <button mat-icon-button
+                  class="nav-icon-btn"
+                  [matMenuTriggerFor]="userMenu"
+                  [matTooltip]="'nav.account' | translate">
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <mat-menu #userMenu="matMenu" panelClass="glass-menu">
+            <a mat-menu-item [routerLink]="['/', currentLang, 'account']">
+              <mat-icon>manage_accounts</mat-icon>
+              <span>{{ 'nav.account' | translate }}</span>
+            </a>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              <span>{{ 'nav.logout' | translate }}</span>
+            </button>
+          </mat-menu>
+        } @else {
+          <a mat-icon-button
+             class="nav-icon-btn"
+             [routerLink]="['/', currentLang, 'login']"
+             [matTooltip]="'nav.login' | translate">
+            <mat-icon>login</mat-icon>
+          </a>
+        }
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ PAGE CONTENT ═══ -->
+  <main class="site-main" role="main">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <mat-icon class="footer-icon">cloud</mat-icon>
+        <span>BassCloud</span>
+      </div>
+      <nav class="footer-links" aria-label="Rechtliche Links">
+        <a [routerLink]="['/', currentLang, 'impressum']">{{ 'legal.imprint' | translate }}</a>
+        <a [routerLink]="['/', currentLang, 'datenschutz']">{{ 'legal.privacy' | translate }}</a>
+      </nav>
+      <p class="footer-copy">&copy; {{ currentYear }} BassCloud</p>
+    </div>
+  </footer>
+
+</div>

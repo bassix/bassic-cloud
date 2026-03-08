@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { AuthService } from './auth.service';
 import { environment } from '@env/environment';
+import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -44,6 +44,7 @@ describe('AuthService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/setup/status`);
+
     expect(req.request.method).toBe('GET');
     req.flush({ success: true, data: { setupComplete: false } });
   });
@@ -71,6 +72,7 @@ describe('AuthService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/auth/login`);
+
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ username: 'admin', password: 'password123' });
     req.flush(mockResponse);
@@ -97,6 +99,7 @@ describe('AuthService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/auth/login`);
+
     req.flush({ success: true, data: { token: 'tok', user: mockUser } });
   });
 });

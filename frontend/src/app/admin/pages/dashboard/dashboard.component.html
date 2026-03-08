@@ -1,0 +1,77 @@
+<div class="space-y-6">
+  <!-- Welcome -->
+  <h1 class="text-3xl font-bold text-jungle-900 dark:text-white">
+    {{ 'dashboard.welcome' | translate:{ username: username } }}
+  </h1>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="stat-card">
+      <div class="stat-icon bg-lagoon-100 text-lagoon-600 dark:bg-lagoon-900/40 dark:text-lagoon-300">
+        <mat-icon>people</mat-icon>
+      </div>
+      <div>
+        <div class="stat-value">{{ totalUsers }}</div>
+        <div class="stat-label">{{ 'dashboard.totalUsers' | translate }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon bg-jungle-100 text-jungle-600 dark:bg-jungle-900/40 dark:text-jungle-300">
+        <mat-icon>folder</mat-icon>
+      </div>
+      <div>
+        <div class="stat-value">{{ totalFiles }}</div>
+        <div class="stat-label">{{ 'dashboard.totalFiles' | translate }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon bg-sand-100 text-sand-500 dark:bg-sand-500/20 dark:text-sand-300">
+        <mat-icon>visibility</mat-icon>
+      </div>
+      <div>
+        <div class="stat-value">{{ accessToday }}</div>
+        <div class="stat-label">{{ 'dashboard.accessToday' | translate }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon bg-coral-100 text-coral-500 dark:bg-coral-500/20 dark:text-coral-300">
+        <mat-icon>warning</mat-icon>
+      </div>
+      <div>
+        <div class="stat-value">{{ failedToday }}</div>
+        <div class="stat-label">{{ 'dashboard.failedToday' | translate }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity Chart -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ 'logs.chart' | translate }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="pt-4">
+      @if (chartData.length > 0) {
+        <div class="h-72">
+          <ngx-charts-line-chart
+            [results]="chartSeries"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="true"
+            [showXAxisLabel]="false"
+            [showYAxisLabel]="false"
+            [autoScale]="true"
+            [scheme]="colorScheme">
+          </ngx-charts-line-chart>
+        </div>
+      }
+      @if (chartData.length === 0) {
+        <p class="text-jungle-600 dark:text-jungle-300 py-8 text-center">
+          {{ 'common.noData' | translate }}
+        </p>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

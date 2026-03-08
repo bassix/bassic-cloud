@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { LogService } from './log.service';
 import { environment } from '@env/environment';
+import { LogService } from './log.service';
 
 describe('LogService', () => {
   let service: LogService;
@@ -16,7 +16,7 @@ describe('LogService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => httpMock.verify());
+  afterEach(() => void httpMock.verify());
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -35,6 +35,7 @@ describe('LogService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/logs/access?page=1&limit=50`);
+
     expect(req.request.method).toBe('GET');
     req.flush(mockResponse);
   });
@@ -43,6 +44,7 @@ describe('LogService', () => {
     service.getFailedLogs(1, 50).subscribe();
 
     const req = httpMock.expectOne(`${environment.apiUrl}/logs/failed?page=1&limit=50`);
+
     expect(req.request.method).toBe('GET');
     req.flush({ success: true, data: [], meta: { total: 0, page: 1, limit: 50, pages: 0 } });
   });
@@ -53,6 +55,7 @@ describe('LogService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/logs/chart-data?days=7`);
+
     expect(req.request.method).toBe('GET');
     req.flush({ success: true, data: [] });
   });

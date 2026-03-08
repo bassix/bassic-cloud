@@ -1,0 +1,217 @@
+<div class="media-page">
+  <!-- Header with view-mode toggle -->
+  <div class="page-header">
+    <h2 class="page-title">{{ 'media.title' | translate }}</h2>
+    <mat-button-toggle-group [value]="viewMode" (change)="setView($event.value)" class="view-toggle-group">
+      <mat-button-toggle value="list" [matTooltip]="'media.list' | translate">
+        <mat-icon>view_list</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="grid" [matTooltip]="'media.grid' | translate">
+        <mat-icon>grid_view</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="slider" [matTooltip]="'media.slider' | translate">
+        <mat-icon>photo_library</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="player" [matTooltip]="'media.player' | translate">
+        <mat-icon>play_circle</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <!-- LIST VIEW -->
+  @if (viewMode === 'list') {
+    <mat-card class="files-card">
+      <table mat-table [dataSource]="allFiles" class="w-full">
+        <ng-container matColumnDef="icon">
+          <th mat-header-cell *matHeaderCellDef class="w-12"></th>
+          <td mat-cell *matCellDef="let file">
+            <mat-icon [class]="getIconColor(file)">{{ getFileIcon(file) }}</mat-icon>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ 'files.name' | translate }}</th>
+          <td mat-cell *matCellDef="let file">{{ file.originalName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>{{ 'files.type' | translate }}</th>
+          <td mat-cell *matCellDef="let file" class="text-xs">{{ file.mimeType }}</td>
+        </ng-container>
+        <ng-container matColumnDef="size">
+          <th mat-header-cell *matHeaderCellDef>{{ 'files.size' | translate }}</th>
+          <td mat-cell *matCellDef="let file">{{ file.size | fileSize }}</td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>{{ 'files.uploaded' | translate }}</th>
+          <td mat-cell *matCellDef="let file">{{ file.createdAt | localeDate }}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let file">
+            @if (file.isImage) {
+              <button mat-icon-button (click)="openSlider(photos.indexOf(file))" [matTooltip]="'media.slider' | translate">
+                <mat-icon>photo_library</mat-icon>
+              </button>
+            }
+            @if (file.isVideo) {
+              <button mat-icon-button (click)="openVideoInline(file)" [matTooltip]="'media.player' | translate">
+                <mat-icon>play_circle</mat-icon>
+              </button>
+            }
+            @if (file.isAudio) {
+              <button mat-icon-button (click)="openAudioInline(file)" [matTooltip]="'media.player' | translate">
+                <mat-icon>audiotrack</mat-icon>
+              </button>
+            }
+            <a mat-icon-button [href]="getDownloadUrl(file)" target="_blank" [matTooltip]="'files.download' | translate">
+              <mat-icon>download</mat-icon>
+            </a>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['icon','name','type','size','date','actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['icon','name','type','size','date','actions'];"
+            class="cursor-pointer hover:bg-jungle-50 dark:hover:bg-jungle-900/30"></tr>
+      </table>
+      @if (allFiles.length === 0) {
+        <div class="empty-state">
+          <mat-icon>folder_open</mat-icon>
+          <p>{{ 'media.noFiles' | translate }}</p>
+        </div>
+      }
+      <mat-paginator [length]="totalFiles" [pageSize]="pageSize" [pageSizeOptions]="[20,50,100]"
+                     (page)="onPageChange($event)"></mat-paginator>
+    </mat-card>
+  }
+
+  <!-- GRID / GALLERY VIEW -->
+  @if (viewMode === 'grid') {
+    <div class="gallery-grid">
+      @for (photo of photos; track photo.id) {
+        <div class="gallery-item" (click)="openSlider(photos.indexOf(photo))">
+          <div class="gallery-thumb">
+            @if (thumbUrls.get(photo.id)) {
+              <img [src]="getThumbUrl(photo)" [alt]="photo.originalName" loading="lazy">
+            } @else {
+              <div class="gallery-loading">
+                <mat-spinner diameter="32"></mat-spinner>
+              </div>
+            }
+          </div>
+          <div class="gallery-overlay">
+            <mat-icon>open_in_full</mat-icon>
+          </div>
+        </div>
+      }
+    </div>
+    @if (photos.length === 0) {
+      <div class="empty-state">
+        <mat-icon>photo_library</mat-icon>
+        <p>{{ 'media.noMedia' | translate }}</p>
+      </div>
+    }
+  }
+
+  <!-- SLIDER VIEW -->
+  @if (viewMode === 'slider' && photos.length > 0) {
+    <div class="slider-container">
+      <button mat-icon-button class="slider-nav slider-prev" (click)="prevSlide()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <div class="slider-image-wrap">
+        @if (fullUrls.get(photos[currentSlide].id) || thumbUrls.get(photos[currentSlide].id)) {
+          <img [src]="getFullUrl(photos[currentSlide])" [alt]="photos[currentSlide].originalName"
+               class="slider-image">
+        } @else {
+          <div class="slider-loading"><mat-spinner></mat-spinner></div>
+        }
+        <div class="slider-caption">{{ photos[currentSlide].originalName }}</div>
+        <div class="slider-counter">{{ currentSlide + 1 }} / {{ photos.length }}</div>
+      </div>
+
+      <button mat-icon-button class="slider-nav slider-next" (click)="nextSlide()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+
+      <!-- Thumbnail strip -->
+      <div class="slider-strip">
+        @for (photo of photos; track photo.id; let i = $index) {
+          <div class="slider-thumb" [class.active]="i === currentSlide" (click)="currentSlide = i">
+            @if (thumbUrls.get(photo.id)) {
+              <img [src]="getThumbUrl(photo)" [alt]="photo.originalName">
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  @if (viewMode === 'slider' && photos.length === 0) {
+    <div class="empty-state">
+      <mat-icon>photo_library</mat-icon>
+      <p>{{ 'media.noMedia' | translate }}</p>
+    </div>
+  }
+
+  <!-- PLAYER VIEW -->
+  @if (viewMode === 'player') {
+    <div class="player-layout">
+      <!-- Video section -->
+      <mat-card class="player-card">
+        <mat-card-header>
+          <mat-card-title>{{ 'player.videos' | translate }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (selectedVideo) {
+            <div class="video-player-container">
+              <video #videoPlayer [src]="getStreamUrl(selectedVideo)" controls class="w-full" preload="metadata">
+              </video>
+            </div>
+            <p class="player-current-name">{{ selectedVideo.originalName }}</p>
+          }
+          <mat-list class="media-list">
+            @for (video of videos; track video.id) {
+              <mat-list-item (click)="selectVideo(video)"
+                             [class.active-media]="selectedVideo?.id === video.id">
+                <mat-icon matListItemIcon class="text-lagoon-500">videocam</mat-icon>
+                <span matListItemTitle>{{ video.originalName }}</span>
+                <span matListItemLine>{{ video.size | fileSize }}</span>
+              </mat-list-item>
+            }
+            @if (videos.length === 0) {
+              <p class="empty-media">{{ 'player.noMedia' | translate }}</p>
+            }
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Audio section -->
+      <mat-card class="player-card">
+        <mat-card-header>
+          <mat-card-title>{{ 'player.audio' | translate }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (selectedAudio) {
+            <div class="audio-player-container">
+              <audio #audioPlayer [src]="getStreamUrl(selectedAudio)" controls class="w-full" preload="metadata">
+              </audio>
+              <p class="player-current-name">{{ selectedAudio.originalName }}</p>
+            </div>
+          }
+          <mat-list class="media-list">
+            @for (audio of audioFiles; track audio.id) {
+              <mat-list-item (click)="selectAudio(audio)"
+                             [class.active-media]="selectedAudio?.id === audio.id">
+                <mat-icon matListItemIcon class="text-coral-500">audiotrack</mat-icon>
+                <span matListItemTitle>{{ audio.originalName }}</span>
+                <span matListItemLine>{{ audio.size | fileSize }}</span>
+              </mat-list-item>
+            }
+            @if (audioFiles.length === 0) {
+              <p class="empty-media">{{ 'player.noMedia' | translate }}</p>
+            }
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>
